@@ -1,0 +1,70 @@
+#ifndef CUTIEVANILLA_MATRIX_H_INCLUDED
+#define CUTIEVANILLA_MATRIX_H_INCLUDED
+
+#include <stdint.h>
+
+typedef enum {
+    CV_MATRIX_UINT8,
+    CV_MATRIX_INT8,
+
+    CV_MATRIX_UINT16,
+    CV_MATRIX_INT16,
+
+    CV_MATRIX_UINT32,
+    CV_MATRIX_INT32,
+
+    CV_MATRIX_FLOAT32,
+    CV_MATRIX_FLOAT64,
+
+    CV_MATRIX_OTHER_TYPE
+
+} CVMatrixType;
+
+typedef struct _CVMatrix{
+    
+    size_t dimension;       // 1D, 2D, 3D, etc; represent the size of shape and strides arrays
+
+    size_t *shape;          // shape of the matrix, e.g. [rows, cols, channels] ; represent the size of each dimension
+
+
+    size_t total_elements;
+
+    CVMatrixType type;
+
+    size_t element_size;
+
+    void* data;
+
+}CVMatrix;
+
+
+
+
+
+/* Construction / Destruction */
+CVMatrix* cv_matrix_create( size_t dimension, const size_t* shape, CVMatrixType type);
+
+void cv_matrix_free(CVMatrix* matrix);
+
+CVMatrix* cv_matrix_clone(const CVMatrix* matrix);
+
+
+/* Type */
+size_t cv_matrix_type_size(CVMatrixType type);
+
+const char *cv_matrix_type_name(CVMatrixType type);
+
+/* access */
+const void* cv_matrix_get(const CVMatrix* matrix, const size_t* indices);
+
+const void* cv_matrix_get_flat(const CVMatrix* matrix, size_t index);
+
+void cv_matrix_set(CVMatrix* matrix, const size_t* indices, const void* value);
+
+void cv_matrix_set_flat(CVMatrix* matrix, size_t index, const void* value);
+
+
+/* Data */
+void cv_matrix_fill(CVMatrix *matrix, const void *value);
+
+#endif // CUTIEVANILLA_MATRIX_H_INCLUDED

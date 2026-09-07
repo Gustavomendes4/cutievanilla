@@ -1,0 +1,4 @@
+#ifndef FILECORE_DIR_H_INCLUDED
+#define FILECORE_DIR_H_INCLUDED
+
+#endif

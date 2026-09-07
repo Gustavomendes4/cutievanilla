@@ -1,0 +1,12 @@
+#ifndef CUTIEVANILLA_METADATA_H_INCLUDED
+#define CUTIEVANILLA_METADATA_H_INCLUDED
+
+
+typedef struct _CVMetaData{
+    int n;
+}CVMetaData;
+
+
+
+
+#endif //CUTIEVANILLA_METADATA_H_INCLUDED

@@ -1,0 +1,35 @@
+cmake_minimum_required(VERSION 3.10)
+
+# Nome do projeto consumidor
+project(run LANGUAGES C)
+
+set(CMAKE_C_STANDARD 11)
+
+# ==============================================================================
+# 1. Importa a biblioteca como subdiretório
+# ==============================================================================
+# Caso o CMakeLists consumidor esteja em "tests/", voltamos um nível (..)
+# Quando o diretório está fora ou em caminho relativo especial, passamos o segundo 
+# argumento para definir onde os artefatos de build dela serão colocados.
+add_subdirectory(
+    ${CMAKE_CURRENT_SOURCE_DIR}/.. 
+    ${CMAKE_CURRENT_BINARY_DIR}/cutievanilla_build
+)
+
+# ==============================================================================
+# 2. Cria o executável
+# ==============================================================================
+add_executable(run
+    t1.c
+)
+
+# ==============================================================================
+# 3. Linkagem com o target da biblioteca
+# ==============================================================================
+# 'cutievanilla' deve ser o nome exato passado no add_library() da lib.
+# Automaticamente o executável herda:
+#   - O arquivo estático (.a)
+#   - Os diretórios de inclusão (headers) marcados como PUBLIC na lib
+target_link_libraries(run PRIVATE
+    cutievanilla
+)
