@@ -39,7 +39,6 @@ int main(int argc, char *argv[]) {
             cv_image_set_channel(img2, x, y, 0, &r);
             cv_image_set_channel(img2, x, y, 1, &g);
             cv_image_set_channel(img2, x, y, 2, &b);
-
         }
 
 

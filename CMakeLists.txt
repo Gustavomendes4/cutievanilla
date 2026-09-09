@@ -17,6 +17,8 @@ set(LIB_SOURCES
 
     src/matrix/matrix.c
 
+    src/image/image.c
+
 
     # Formats implementations
     src/io/bmp/bmp_io.c

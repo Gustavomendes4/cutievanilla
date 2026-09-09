@@ -5,6 +5,7 @@
 #include "bmp_io.h"
 
 #include "cutievanilla.h"
+#include "matrix/matrix.h"
 
 
 /* local validations */
@@ -207,7 +208,7 @@ CVImage* cv_bmp_load(const char* filename){
     img->matrix = matrix;
 
     img->color_format = CV_COLOR_RGBA;
-    img->file_format = CV_IMAGE_FORMAT_BMP;
+    // img->file_format = CV_IMAGE_FORMAT_BMP;
 
     return img;
 }

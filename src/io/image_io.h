@@ -1,8 +1,6 @@
 #ifndef CUTIEVANILLA_IO_H_INCLUDED
 #define CUTIEVANILLA_IO_H_INCLUDED
 
-
-
 typedef enum _CVFileFormat{
     CV_IMAGE_FORMAT_BMP,
     CV_IMAGE_FORMAT_PNG,
