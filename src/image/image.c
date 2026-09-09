@@ -9,9 +9,9 @@
 
 #include "io/image_io.h"
 
-#include "matrix/matrix.h"
 
-#include "image.h"
+#include "cutievanilla/matrix.h"
+#include "cutievanilla/image.h"
 
 
 /*                      */
@@ -181,9 +181,9 @@ void cv_image_set_pixel(CVImage *image, size_t x, size_t y, const void* values){
         return;
     }
 
-    size_t size = cv_matrix_get_element_size(image->matrix);
+    size_t size = cv_matrix_element_size(image->matrix);
     
-    size_t channels = cv_image_get_channels(image);
+    size_t channels = cv_image_channels(image);
 
     for( size_t i = 0; i < channels; i++){
 

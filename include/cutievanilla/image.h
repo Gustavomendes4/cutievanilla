@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "metadata/metadata.h"
+#include "metadata.h"
 
 /* Forward declaration */
 typedef struct _CVMatrix CVMatrix;

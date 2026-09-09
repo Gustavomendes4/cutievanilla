@@ -4,7 +4,7 @@
 
 #include <limits.h>
 
-#include "matrix.h"
+#include "cutievanilla/matrix.h"
 
 #define INVALID_INDEX SIZE_MAX
 
@@ -144,7 +144,7 @@ CVMatrix* cv_matrix_clone(const CVMatrix* matrix){
     }
 
 
-    size_t total_bytes = (cv_matrix_get_element_size(matrix) * cv_matrix_get_element_count(matrix));
+    size_t total_bytes = (cv_matrix_element_size(matrix) * cv_matrix_element_count(matrix));
 
     memcpy( newMatrix->data, matrix->data, total_bytes);
     
@@ -225,7 +225,7 @@ const size_t *cv_matrix_get_shape(const CVMatrix *matrix){
     return matrix->shape;
 }
 
-size_t cv_matrix_get_element_count(const CVMatrix *matrix){
+size_t cv_matrix_element_count(const CVMatrix *matrix){
     
     if( !is_matrix_valid(matrix) )
         return 0;
@@ -233,7 +233,7 @@ size_t cv_matrix_get_element_count(const CVMatrix *matrix){
     return matrix->total_elements;
 }
 
-size_t cv_matrix_get_element_size(const CVMatrix *matrix){
+size_t cv_matrix_element_size(const CVMatrix *matrix){
     
     if( !is_matrix_valid(matrix) )
         return 0;

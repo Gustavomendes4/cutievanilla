@@ -1,12 +1,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "cutievanilla.h"
-
+#include <time.h>
 #include <stdint.h>
 
-#include <time.h>
+#include "cutievanilla.h"
+#include "cutievanilla/matrix.h"
 
 
 int main(int argc, char *argv[]) {
@@ -20,6 +19,32 @@ int main(int argc, char *argv[]) {
     // CVImage* img = cv_image_load(path);
 
     CVImage* img2 = cv_image_create(1920, 1920, CV_COLOR_RGBA, CV_IMAGE_DATA_UINT8);
+
+    CVMatrix* matrix = cv_matrix_create(6, SZ_LIST(10, 10, 10, 10, 10, 10), CV_MATRIX_FLOAT64);
+
+    printf("matrix criada:\n");
+    
+    //
+    printf("type: [%lu] %s\n", (long)cv_matrix_element_size(matrix), cv_matrix_type_name(matrix->type));
+
+    //
+    long dim = (long)cv_matrix_get_dimension(matrix);
+    printf("dimensions: %lu\n", dim);
+
+    //
+    const size_t* shape = cv_matrix_get_shape(matrix);
+    printf("shape: {");
+    for(int i = 0; i < dim; i++)
+        printf(" %lu,", shape[i]);
+    printf("}\n");
+
+    //
+    printf("total: %lu\n", (long)cv_matrix_element_count(matrix)); 
+    
+    
+    
+    
+    
 
     if(img2 == NULL){
         printf("Deu ruim");
@@ -53,6 +78,5 @@ int main(int argc, char *argv[]) {
     printf("TUDO CERTO! (%d)\n", n);
 
     return 0;
+
 }
-
-

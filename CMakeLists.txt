@@ -11,21 +11,19 @@ add_subdirectory(libs/utils)
 
 # Adiciona o executável principal
 set(LIB_SOURCES
-    src/cutievanilla.c
+    # src/cutievanilla.c
     
-    src/io/image_io.c
+    src/image/io/image_io.c
+    src/image/image.c
 
     src/matrix/matrix.c
 
-    src/image/image.c
-
-
     # Formats implementations
-    src/io/bmp/bmp_io.c
-    src/io/jpeg/jpeg_io.c
-    src/io/jpg/jpg_io.c
-    src/io/png/png_io.c
-    src/io/tiff/tiff_io.c
+    src/image/io/bmp/bmp_io.c
+    src/image/io/jpeg/jpeg_io.c
+    src/image/io/jpg/jpg_io.c
+    src/image/io/png/png_io.c
+    src/image/io/tiff/tiff_io.c
     
 )
 
@@ -44,12 +42,13 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 
 # Header público exposto para quem linka com a lib
 target_include_directories(${PROJECT_NAME} PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 # Headers privados dentro de src/ (visíveis apenas pelos .c da própria lib)
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/io
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    
 )
 
 

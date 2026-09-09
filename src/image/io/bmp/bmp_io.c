@@ -5,7 +5,7 @@
 #include "bmp_io.h"
 
 #include "cutievanilla.h"
-#include "matrix/matrix.h"
+#include "cutievanilla/matrix.h"
 
 
 /* local validations */

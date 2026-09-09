@@ -58,9 +58,9 @@ size_t cv_matrix_get_dimension(const CVMatrix *matrix);
 
 const size_t *cv_matrix_get_shape(const CVMatrix *matrix);
 
-size_t cv_matrix_get_element_count(const CVMatrix *matrix);
+size_t cv_matrix_element_count(const CVMatrix *matrix);
 
-size_t cv_matrix_get_element_size(const CVMatrix *matrix);
+size_t cv_matrix_element_size(const CVMatrix *matrix);
 
 /* access */
 const void* cv_matrix_get(const CVMatrix* matrix, const size_t* indices);
