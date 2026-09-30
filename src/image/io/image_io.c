@@ -11,7 +11,7 @@ struct Format{
 
     const char* extension;
 
-    CVFileFormat format;
+    CVImageFileFormat format;
 
     bool (*validator)(const char*);
 
@@ -23,19 +23,17 @@ struct Format{
 
 static const struct Format FormatList[] = {
     {"bmp",  CV_IMAGE_FORMAT_BMP,    cv_is_valid_bmp_file,   cv_bmp_load, cv_bmp_save},
-    {"png",  CV_IMAGE_FORMAT_PNG,    cv_is_valid_png_file,   cv_bmp_load, cv_png_save},
-    {"jpg",  CV_IMAGE_FORMAT_JPG,    cv_is_valid_jpg_file,   cv_bmp_load, cv_jpg_save},
-    {"jpeg", CV_IMAGE_FORMAT_JPEG,   cv_is_valid_jpeg_file,  cv_bmp_load, cv_jpeg_save},
-    {"tiff", CV_IMAGE_FORMAT_TIFF,   cv_is_valid_tiff_file,  cv_bmp_load, cv_tiff_save},
+    {"png",  CV_IMAGE_FORMAT_PNG,    cv_is_valid_png_file,   cv_png_load, cv_png_save},
+    {"jpg",  CV_IMAGE_FORMAT_JPG,    cv_is_valid_jpg_file,   cv_jpg_load, cv_jpg_save},
+    {"jpeg", CV_IMAGE_FORMAT_JPEG,   cv_is_valid_jpeg_file,  cv_jpeg_load, cv_jpeg_save},
+    {"tiff", CV_IMAGE_FORMAT_TIFF,   cv_is_valid_tiff_file,  cv_tiff_load, cv_tiff_save},
 
     {"", CV_INVALID_IMAGE_FORMAT,   NULL,  NULL, NULL}
 };
 
-bool cv_image_io_validate_format(const char* filename, CVFileFormat format){
+bool cv_image_io_validate_format(const char* filename, CVImageFileFormat format){
 
-    int i;
-
-    for(i = 0; FormatList[i].format != CV_INVALID_IMAGE_FORMAT; i++){
+    for(int i = 0; FormatList[i].format != CV_INVALID_IMAGE_FORMAT; i++){
 
         if( FormatList[i].format == format ){
 
@@ -47,13 +45,11 @@ bool cv_image_io_validate_format(const char* filename, CVFileFormat format){
     return false;
 }
 
-CVFileFormat cv_image_io_detect_format(const char* filename){
-    
-    int i;
+CVImageFileFormat cv_image_io_detect_format(const char* filename){
 
     const char* ext = fc_getExtension(filename) + 1;
 
-    for( i = 0; FormatList[i].format != CV_INVALID_IMAGE_FORMAT; i++ ){
+    for( int i = 0; FormatList[i].format != CV_INVALID_IMAGE_FORMAT; i++ ){
 
         const char* curr_ext = FormatList[i].extension;
 
@@ -67,15 +63,13 @@ CVFileFormat cv_image_io_detect_format(const char* filename){
 
 CVImage* cv_image_io_load(const char* filename){
 
-    int i;
-
-    CVFileFormat format = cv_image_io_detect_format(filename);
+    CVImageFileFormat format = cv_image_io_detect_format(filename);
     
     if( format == CV_INVALID_IMAGE_FORMAT )
         return NULL;
     
 
-    for( i = 0; FormatList[i].format != CV_INVALID_IMAGE_FORMAT; i++ ){
+    for( int i = 0; FormatList[i].format != CV_INVALID_IMAGE_FORMAT; i++ ){
 
         if( FormatList[i].format == format ){
 
@@ -93,16 +87,14 @@ CVImage* cv_image_io_load(const char* filename){
 
 int cv_image_io_save(CVImage* image, const char* filename){
 
-    int i;
-
     /* Detect image format */
-    CVFileFormat format = cv_image_io_detect_format(filename);
+    CVImageFileFormat format = cv_image_io_detect_format(filename);
 
     if( format == CV_INVALID_IMAGE_FORMAT )
         return -3;
 
 
-    for( i = 0; FormatList[i].format != CV_INVALID_IMAGE_FORMAT; i++ ){
+    for( size_t i = 0; FormatList[i].format != CV_INVALID_IMAGE_FORMAT; i++ ){
 
         if( FormatList[i].format == format ){
 

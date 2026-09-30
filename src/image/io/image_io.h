@@ -1,7 +1,7 @@
 #ifndef CUTIEVANILLA_IO_H_INCLUDED
 #define CUTIEVANILLA_IO_H_INCLUDED
 
-typedef enum _CVFileFormat{
+typedef enum _CVImageFileFormat{
     CV_IMAGE_FORMAT_BMP,
     CV_IMAGE_FORMAT_PNG,
     CV_IMAGE_FORMAT_JPG,
@@ -9,7 +9,7 @@ typedef enum _CVFileFormat{
     CV_IMAGE_FORMAT_TIFF,
 
     CV_INVALID_IMAGE_FORMAT
-}CVFileFormat;
+}CVImageFileFormat;
 
 /* == Adiciona cabeçalhos para funções de I/O de imagens == */
 
@@ -23,9 +23,9 @@ typedef enum _CVFileFormat{
 
 #include "tiff/tiff_io.h"
 
-bool cv_image_io_validate_format(const char* filename, CVFileFormat format);
+bool cv_image_io_validate_format(const char* filename, CVImageFileFormat format);
 
-CVFileFormat cv_image_io_detect_format(const char* filename);
+CVImageFileFormat cv_image_io_detect_format(const char* filename);
 
 CVImage* cv_image_io_load(const char* filename);
 

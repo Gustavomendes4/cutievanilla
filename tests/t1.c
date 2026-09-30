@@ -18,9 +18,9 @@ int main(int argc, char *argv[]) {
 
     // CVImage* img = cv_image_load(path);
 
-    CVImage* img2 = cv_image_create(1920, 1920, CV_COLOR_RGBA, CV_IMAGE_DATA_UINT8);
+    CVImage* img2 = cv_image_create(1920, 1920, CV_COLOR_RGBA, CV_UINT8);
 
-    CVMatrix* matrix = cv_matrix_create(6, SZ_LIST(10, 10, 10, 10, 10, 10), CV_MATRIX_FLOAT64);
+    CVMatrix* matrix = cv_matrix_create(6, SZ_LIST(10, 10, 10, 10, 10, 10), CV_FLOAT32);
 
     printf("matrix criada:\n");
     

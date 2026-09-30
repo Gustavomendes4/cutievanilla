@@ -37,14 +37,13 @@ static bool is_matrix_valid(const CVMatrix* matrix){
 
 /* ========================= */
 
-
-CVMatrix* cv_matrix_create( size_t dimension, const size_t* shape, CVMatrixType type){
+CVMatrix* cv_matrix_create( size_t dimension, const size_t* shape, CVType type){
 
     if( dimension == 0 || shape == NULL )
         return NULL;
 
     /* get element size*/
-    size_t element_size = cv_matrix_type_size(type);
+    size_t element_size = cv_type_size(type);
     /* validate element */
     if( element_size == 0 )
         return NULL;
@@ -130,12 +129,11 @@ CVMatrix* cv_matrix_clone(const CVMatrix* matrix){
         return NULL;
     }
 
-    
     size_t dimension = cv_matrix_get_dimension(matrix);
 
     const size_t* shape = cv_matrix_get_shape(matrix);
 
-    CVMatrixType type = matrix->type;
+    CVType type = matrix->type;
 
     CVMatrix* newMatrix = cv_matrix_create(dimension, shape, type);
 
@@ -151,60 +149,35 @@ CVMatrix* cv_matrix_clone(const CVMatrix* matrix){
     return newMatrix;
 }
 
-size_t cv_matrix_type_size(CVMatrixType type){
+const char *cv_matrix_type_name(CVType type){
 
     switch(type){
-        case CV_MATRIX_UINT8:
-        case CV_MATRIX_INT8:
-            return 1;
-
-        case CV_MATRIX_UINT16:
-        case CV_MATRIX_INT16:
-            return 2;
-
-        case CV_MATRIX_UINT32:
-        case CV_MATRIX_INT32:
-        case CV_MATRIX_FLOAT32:
-            return 4;
-
-        case CV_MATRIX_FLOAT64:
-            return 8;
-
-        default:
-            return 0;
-    }
-
-}
-
-const char *cv_matrix_type_name(CVMatrixType type){
-
-    switch(type){
-        case CV_MATRIX_UINT8:
+        case CV_UINT8:
             return "uint8";
         
-        case CV_MATRIX_INT8:
+        case CV_INT8:
             return "int8";
 
-        case CV_MATRIX_UINT16:
+        case CV_UINT16:
             return "uint16";
         
-        case CV_MATRIX_INT16:
+        case CV_INT16:
             return "int16";
 
-        case CV_MATRIX_UINT32:
+        case CV_UINT32:
             return "uint32";
 
-        case CV_MATRIX_INT32:
+        case CV_INT32:
             return "int32";
 
-        case CV_MATRIX_FLOAT32:
+        case CV_FLOAT32:
             return "float32";
 
-        case CV_MATRIX_FLOAT64:
+        case CV_FLOAT64:
             return "float64";
 
         default:
-            return "None";
+            return "Unknowed";
     }
 
 }
@@ -325,7 +298,7 @@ bool cv_matrix_same_type(const CVMatrix *a, const CVMatrix *b){
     if( a->type !=  b->type )
         return false;
 
-    if( a->type == CV_MATRIX_OTHER_TYPE)
+    if( a->type == CV_TYPE_UNKNOWED)
         return a->element_size == b->element_size;
 
     return true;

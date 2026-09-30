@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+#include "type.h"
 #include "metadata.h"
 
 /* Forward declaration */
@@ -33,20 +34,6 @@ typedef enum {
     */
 }CVImageColorSpace;
 
-typedef enum {
-    CV_IMAGE_DATA_UINT8 = 0,
-    CV_IMAGE_DATA_INT8,
-    CV_IMAGE_DATA_UINT16,
-    CV_IMAGE_DATA_INT16,
-    CV_IMAGE_DATA_UINT32,
-    CV_IMAGE_DATA_INT32,
-    CV_IMAGE_DATA_FLOAT32,
-    CV_IMAGE_DATA_FLOAT64,
-
-    CV_IMAGE_DATA_UNKNOWED
-} CVImageDataType;
-
-
 /* ========================= */
 /* Image                     */
 /* ========================= */
@@ -67,7 +54,7 @@ typedef struct _CVImage{
 /* Creation / destruction    */
 /* ========================= */
 
-CVImage* cv_image_create(size_t width, size_t height, CVImageColorSpace channels, CVImageDataType data_type);
+CVImage* cv_image_create(size_t width, size_t height, CVImageColorSpace channels, CVType data_type);
 
 CVImage* cv_image_load(const char* filename);
 

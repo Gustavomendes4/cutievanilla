@@ -13,10 +13,20 @@ add_subdirectory(libs/utils)
 set(LIB_SOURCES
     # src/cutievanilla.c
     
+    src/type.c
+
     src/image/io/image_io.c
     src/image/image.c
 
     src/matrix/matrix.c
+
+    src/histogram/histogram.c
+    src/histogram/io/histogram_io.c
+
+    # HISTOGRAMS Formats implementations
+    src/histogram/io/csv/csv_io.c
+    src/histogram/io/txt/txt_io.c
+    src/histogram/io/xlsx/xlsx_io.c
 
     # Formats implementations
     src/image/io/bmp/bmp_io.c

@@ -1,6 +1,13 @@
+/*
+
+    this file describes the public API for open, create, manipulate and save images.
+
+
+
+
+*/
+
 #include <stdio.h>
-
-
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
@@ -9,35 +16,9 @@
 
 #include "io/image_io.h"
 
-
+#include "cutievanilla/type.h"
 #include "cutievanilla/matrix.h"
 #include "cutievanilla/image.h"
-
-
-/*                      */
-/*  Private functions   */
-/*                      */
-static bool is_valid_image_data_type(CVImageDataType type){
-    return type >= 0 && type < CV_IMAGE_DATA_UNKNOWED;
-}
-
-static CVMatrixType image_to_matrix_type(CVImageDataType type){
-
-    switch(type){
-
-        case CV_IMAGE_DATA_UINT8:   return CV_MATRIX_UINT8;
-        case CV_IMAGE_DATA_INT8:    return CV_MATRIX_INT8;
-        case CV_IMAGE_DATA_UINT16:  return CV_MATRIX_UINT16;
-        case CV_IMAGE_DATA_INT16:   return CV_MATRIX_INT16;
-        case CV_IMAGE_DATA_UINT32:  return CV_MATRIX_UINT32;
-        case CV_IMAGE_DATA_INT32:   return CV_MATRIX_INT32;
-        case CV_IMAGE_DATA_FLOAT32: return CV_MATRIX_FLOAT32;
-        case CV_IMAGE_DATA_FLOAT64: return CV_MATRIX_FLOAT64;
-
-        default:                    
-        case CV_IMAGE_DATA_UNKNOWED: return CV_MATRIX_OTHER_TYPE;
-    }
-}
 
 static size_t num_of_channels(CVImageColorSpace color_space){
 
@@ -57,23 +38,21 @@ static size_t num_of_channels(CVImageColorSpace color_space){
 /*                      */
 /*   Public functions   */
 /*                      */
-CVImage* cv_image_create(size_t width, size_t height, CVImageColorSpace color_space, CVImageDataType data_type){
+CVImage* cv_image_create(size_t width, size_t height, CVImageColorSpace color_space, CVType data_type){
 
     size_t channels = num_of_channels(color_space);
 
     if(
         width == 0      ||
         height == 0     ||
-        channels == 0   ||
-        !is_valid_image_data_type(data_type)
+        channels == 0   //||
+        // !is_valid_image_data_type(data_type)
         
     ){
         return NULL;
     }
 
-    CVMatrixType type = image_to_matrix_type(data_type);
-
-    CVMatrix* matrix = cv_matrix_create(3, (size_t[]){width, height, channels},  type);
+    CVMatrix* matrix = cv_matrix_create(3, (size_t[]){width, height, channels},  data_type);
 
     if( matrix == NULL ){
         return NULL;

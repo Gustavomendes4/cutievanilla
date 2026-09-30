@@ -134,7 +134,7 @@ CVImage* cv_bmp_load(const char* filename){
     CVMatrix* matrix = cv_matrix_create(
         3,
         (size_t[]){width, height, 4},
-        CV_MATRIX_UINT8
+        CV_UINT8
     );
 
     if(matrix == NULL){
@@ -220,18 +220,15 @@ int cv_bmp_save(CVImage* image, const char* filename){
         return 1;
     }
 
-
     FILE* file = fopen(filename, "wb");
 
     if( file == NULL)
         return 2;
 
-
     /* */
     const size_t width  = image->matrix->shape[0];
     const size_t height = image->matrix->shape[1];
 
-    
     /* BMP rows must be aligned to 4 bytes. */
     const size_t row_size = width * 3;
 

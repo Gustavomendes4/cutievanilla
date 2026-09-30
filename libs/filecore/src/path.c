@@ -74,7 +74,7 @@ static char* STATIC_fc_getName( char* path){
         return NULL;
     }
 
-    const char* lastSeparator = FC_LAST_CHAR_PTR(path);
+    char* lastSeparator = FC_LAST_CHAR_PTR(path);
 
     if (FC_IS_PATH_SEPARATOR(*lastSeparator)) {
         return NULL;
@@ -285,7 +285,7 @@ void fc_joinPath(char* dst, size_t size, const char* path1, const char* path2){
 
     /* Verify collision in path2 */
     char temp_buffer[FC_PATH_MAX_SIZE];
-    char *p2 = path2;
+    const char *p2 = path2;
 
     if( fc_buffersOverlap(dst, size, path2, len2 + 1) ){
         memmove(temp_buffer, path2, len2 + 1);
