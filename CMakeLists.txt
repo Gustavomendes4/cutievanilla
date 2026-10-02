@@ -5,15 +5,16 @@ project(cutievanilla LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 
 
-# Adiciona dependências internas
+# Adiciona dependências externas
 add_subdirectory(libs/filecore)
 add_subdirectory(libs/utils)
+
+# Adiciona dependências internas
+add_subdirectory(src/type)
 
 # Adiciona o executável principal
 set(LIB_SOURCES
     # src/cutievanilla.c
-    
-    src/type.c
 
     src/image/io/image_io.c
     src/image/image.c

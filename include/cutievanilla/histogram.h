@@ -32,7 +32,7 @@ CVHistogram* cv_histogram_load(const char* filename);
 
 int cv_histogram_save(CVHistogram* histogram, const char* filename);
 
-CVHistogram* cv_histogram_clone(CVHistogram* histogram);
+CVHistogram* cv_histogram_clone(const CVHistogram* histogram);
 
 /* ====== Creation / Destruction ====== */
 CVHistogram* cv_histogram_create(size_t bins, CVType type);

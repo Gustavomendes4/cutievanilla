@@ -141,7 +141,6 @@ CVMatrix* cv_matrix_clone(const CVMatrix* matrix){
         return NULL;
     }
 
-
     size_t total_bytes = (cv_matrix_element_size(matrix) * cv_matrix_element_count(matrix));
 
     memcpy( newMatrix->data, matrix->data, total_bytes);

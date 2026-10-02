@@ -53,7 +53,7 @@ int cv_csv_save(CVHistogram* histogram, const char* filename){
         }
 
         /* convert to string */
-        if( !cv_type_to_string(value_str, value, type) ){
+        if( !cv_type_to_string(type, value_str, value) ){
             free(value);
             fclose(file);
             return -11;

@@ -75,7 +75,6 @@ CVHistogram* cv_histogram_clone(const CVHistogram* histogram){
 
     CVHistogram* newhist = cv_histogram_create(histogram->bins, histogram->type);
 
-
     /* copy values vector */
     size_t total_values_bytes = cv_histogram_bins(newhist) * cv_histogram_element_size(newhist);
 
