@@ -33,10 +33,7 @@ void cv_matrix_free(CVMatrix* matrix);
 
 CVMatrix* cv_matrix_clone(const CVMatrix* matrix);
 
-
 /* Type */
-const char* cv_matrix_type_name(CVType type);
-
 size_t cv_matrix_get_dimension(const CVMatrix *matrix);
 
 const size_t *cv_matrix_get_shape(const CVMatrix *matrix);

@@ -148,39 +148,6 @@ CVMatrix* cv_matrix_clone(const CVMatrix* matrix){
     return newMatrix;
 }
 
-const char *cv_matrix_type_name(CVType type){
-
-    switch(type){
-        case CV_UINT8:
-            return "uint8";
-        
-        case CV_INT8:
-            return "int8";
-
-        case CV_UINT16:
-            return "uint16";
-        
-        case CV_INT16:
-            return "int16";
-
-        case CV_UINT32:
-            return "uint32";
-
-        case CV_INT32:
-            return "int32";
-
-        case CV_FLOAT32:
-            return "float32";
-
-        case CV_FLOAT64:
-            return "float64";
-
-        default:
-            return "Unknowed";
-    }
-
-}
-
 size_t cv_matrix_get_dimension(const CVMatrix *matrix){
     
     if( !is_matrix_valid(matrix) )
@@ -294,11 +261,14 @@ bool cv_matrix_same_type(const CVMatrix *a, const CVMatrix *b){
     if( !is_matrix_valid(a) || !is_matrix_valid(b))
         return false;
 
+    return a->type ==  b->type;
+/*
     if( a->type !=  b->type )
         return false;
 
     if( a->type == CV_TYPE_UNKNOWED)
         return a->element_size == b->element_size;
-
     return true;
+
+*/
 }
