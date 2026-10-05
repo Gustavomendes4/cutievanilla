@@ -20,85 +20,116 @@ int i8_comparer(const void* a, const void* b){
     int a_1 = *(const int8_t*)a;
     int b_1 = *(const int8_t*)b;
     
-    return a_1 - b_1;
+    return (a_1 > b_1) - (a_1 < b_1);
 }
 
-bool i8_adder(void* dest, const void* a, const void* b){
+TypeError i8_adder(void* dest, const void* a, const void* b){
     
     if( dest == NULL || a == NULL || b == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
-    *(int8_t*)dest = *(const int8_t*)a + *(const int8_t*)b;
+    int16_t result = *(const int8_t*)a + *(const int8_t*)b;
 
-    return true;
+    if( result > INT8_MAX){
+        return TYPE_ERROR_OVERFLOW;
+    }
+
+    if( result < INT8_MIN){
+        return TYPE_ERROR_UNDERFLOW;
+    }
+
+    *(int8_t*)dest = (int8_t)result;
+
+    return TYPE_OK;
 }
 
-bool i8_subtractor(void* dest, const void* a, const void* b){
+TypeError i8_subtractor(void* dest, const void* a, const void* b){
     
     if( dest == NULL || a == NULL || b == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
-    *(int8_t*)dest = *(const int8_t*)a - *(const int8_t*)b;
+    int16_t result = *(const int8_t*)a - *(const int8_t*)b;
 
-    return true;
+    if( result < INT8_MIN)
+        return TYPE_ERROR_UNDERFLOW;
+    if( result > INT8_MAX)
+        return TYPE_ERROR_OVERFLOW;
+
+    *(int8_t*)dest = (int8_t)result;
+
+    return TYPE_OK;
 }
 
-bool i8_multiplier(void* dest, const void* a, const void* b){
+TypeError i8_multiplier(void* dest, const void* a, const void* b){
     
     if( dest == NULL || a == NULL || b == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
-    *(int8_t*)dest = *(const int8_t*)a * *(const int8_t*)b;
+    int16_t result = *(const int8_t*)a * *(const int8_t*)b;
+        
+    if( result < INT8_MIN)
+        return TYPE_ERROR_UNDERFLOW;
+    if( result > INT8_MAX)
+        return TYPE_ERROR_OVERFLOW;
 
-    return true;
+    *(int8_t*)dest = (int8_t)result;
+
+    return TYPE_OK;
 }
 
-bool i8_divider(void* dest, const void* a, const void* b){
+TypeError i8_divider(void* dest, const void* a, const void* b){
     
     if( dest == NULL || a == NULL || b == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
-    if( *(const int8_t*)b == 0)
-        return false;
+    int8_t value_a = *(const int8_t*)a;
+    int8_t value_b = *(const int8_t*)b;
 
-    *(int8_t*)dest = *(const int8_t*)a / *(const int8_t*)b;
+    if( value_b == 0)
+        return TYPE_ERROR_DIVISION_BY_ZERO;
 
-    return true;
+    if (value_a == INT8_MIN && value_b == -1)
+        return TYPE_ERROR_OVERFLOW;
+
+    *(int8_t*)dest = value_a / value_b;
+
+    return TYPE_OK;
 }
 
-bool i8_min(void* value){
+TypeError i8_min(void* value){
     
     if( value == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     *(int8_t*)value = INT8_MIN;
 
-    return true;
+    return TYPE_OK;
 }
 
-bool i8_max(void* value){
+TypeError i8_max(void* value){
     
     if( value == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     *(int8_t*)value = INT8_MAX;
 
-    return true;
+    return TYPE_OK;
 }
 
-bool i8_to_string(char* string, const void* value){
-    (void*)string;
-    (const void*)value;
+TypeError i8_to_string(char* string, const void* value){
+
+    (void)string;
+    (void)value;
 
     // ... not implemented yet
-
-    return false;
+    return TYPE_OK;
 }
 
-bool i8_from_string(const char* string, const void* value){
-    (const char*) string;
-    (const void*)value;
+TypeError i8_from_string(void* value, const char* string){
+
+    (void)string;
+    (void)value;
 
     // ... not implemented yet
-    return false;
+    return TYPE_OK;
 }

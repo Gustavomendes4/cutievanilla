@@ -20,83 +20,111 @@ int i16_comparer(const void* a, const void* b){
     int a_1 = *(const int16_t*)a;
     int b_1 = *(const int16_t*)b;
     
-    return a_1 - b_1;
+    return (a_1 > b_1) - (a_1 < b_1);
 }
 
-bool i16_adder(void* dest, const void* a, const void* b){
+TypeError i16_adder(void* dest, const void* a, const void* b){
     
     if( dest == NULL || a == NULL || b == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
-    *(int16_t*)dest = *(const int16_t*)a + *(const int16_t*)b;
+    int32_t result = (int32_t)(*(const int16_t*)a) + *(const int16_t*)b;
 
-    return true;
+    if(result < INT16_MIN)
+        return TYPE_ERROR_UNDERFLOW;
+        
+    if(result > INT16_MAX)
+        return TYPE_ERROR_OVERFLOW;
+
+    *(int16_t*)dest = (int16_t)result;
+
+    return TYPE_OK;
 }
 
-bool i16_subtractor(void* dest, const void* a, const void* b){
+TypeError i16_subtractor(void* dest, const void* a, const void* b){
     
     if( dest == NULL || a == NULL || b == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
-    *(int16_t*)dest = *(const int16_t*)a - *(const int16_t*)b;
+    int32_t result = *(const int16_t*)a - *(const int16_t*)b;
 
-    return true;
+    if( result < INT16_MIN)
+        return TYPE_ERROR_UNDERFLOW;
+    if( result > INT16_MAX)
+        return TYPE_ERROR_OVERFLOW;
+
+    *(int16_t*)dest = (int16_t)result;
+
+    return TYPE_OK;
 }
 
-bool i16_multiplier(void* dest, const void* a, const void* b){
+TypeError i16_multiplier(void* dest, const void* a, const void* b){
     
     if( dest == NULL || a == NULL || b == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
-    *(int16_t*)dest = *(const int16_t*)a * *(const int16_t*)b;
+    int32_t result = *(const int16_t*)a * *(const int16_t*)b;
+        
+    if( result < INT16_MIN)
+        return TYPE_ERROR_UNDERFLOW;
+    if( result > INT16_MAX)
+        return TYPE_ERROR_OVERFLOW;
 
-    return true;
+    *(int16_t*)dest = (int16_t)result;
+
+    return TYPE_OK;
 }
 
-bool i16_divider(void* dest, const void* a, const void* b){
+TypeError i16_divider(void* dest, const void* a, const void* b){
     
     if( dest == NULL || a == NULL || b == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
-    if( *(const int16_t*)b == 0)
-        return false;
+    int16_t value_a = *(const int16_t*)a;
+    int16_t value_b = *(const int16_t*)b;
 
-    *(int16_t*)dest = *(const int16_t*)a / *(const int16_t*)b;
+    if( value_b == 0)
+        return TYPE_ERROR_DIVISION_BY_ZERO;
 
-    return true;
+    if (value_a == INT16_MIN && value_b == -1)
+        return TYPE_ERROR_OVERFLOW;
+
+    *(int16_t*)dest = value_a / value_b;
+
+    return TYPE_OK;
 }
 
-bool i16_min(void* value){
+TypeError i16_min(void* value){
     
     if( value == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     *(int16_t*)value = INT16_MIN;
 
-    return true;
+    return TYPE_OK;
 }
 
-bool i16_max(void* value){
+TypeError i16_max(void* value){
     
     if( value == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     *(int16_t*)value = INT16_MAX;
 
-    return true;
+    return TYPE_OK;
 }
 
-bool i16_to_string(char* string, const void* value){
-    (void*)string;
-    (const void*)value;
+TypeError i16_to_string(char* string, const void* value){
+    (void)string;
+    (void)value;
 
-    return false;
+    return TYPE_OK;
 }
 
-bool i16_from_string(const char* string, const void* value){
-    (const char*) string;
-    (const void*)value;
+TypeError i16_from_string(void* value, const char* string){
+    (void) string;
+    (void)value;
 
-    return false;
+    return TYPE_OK;
 
 }

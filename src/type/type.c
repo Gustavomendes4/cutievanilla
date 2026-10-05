@@ -29,23 +29,21 @@ typedef struct _TypeMapping{
 
     int (*comparer)(const void* a, const void* b);
 
-    bool (*adder)(void* dest, const void* a, const void* b);
+    TypeError (*adder)(void* dest, const void* a, const void* b);
 
-    bool (*subtractor)(void* dest, const void* a, const void* b);
+    TypeError (*subtractor)(void* dest, const void* a, const void* b);
 
-    bool (*multiplier)(void* dest, const void* a, const void* b);
+    TypeError (*multiplier)(void* dest, const void* a, const void* b);
 
-    bool (*divider)(void* dest, const void* a, const void* b);
+    TypeError (*divider)(void* dest, const void* a, const void* b);
 
+    TypeError (*min)(void* value);
 
-    bool (*min)(void* value);
+    TypeError (*max)(void* value);
 
-    bool (*max)(void* value);
+    TypeError (*to_string)(char* string, const void* value);
 
-
-    bool (*to_string)(char* string, const void* value);
-
-    bool (*from_string)(const char* string, const void* value);
+    TypeError (*from_string)(void* value, const char* string);
 
 }TypeMapping;
 
@@ -173,152 +171,153 @@ int cv_type_compare(CVType type, const void* a, const void* b){
     return type_mappings[index].comparer(a, b);
 }
 
-bool cv_type_copy(CVType type, void* dest, const void* src){
+TypeError cv_type_copy(CVType type, void* dest, const void* src){
 
     if( dest == NULL || src == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
         
     size_t size = cv_type_size(type);
 
-    if(size == 0) return false;
+    if(size == 0) return TYPE_ERROR_INVALID_TYPE;
 
     memcpy(dest, src, size);
 
-    return true;
+    return TYPE_OK;
 }
 
-bool cv_type_set_zero(CVType type, void* dest){
+TypeError cv_type_set_zero(CVType type, void* dest){
 
     if(dest == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     size_t size = cv_type_size(type);
 
-    if(size == 0) return false;
+    if(size == 0) return TYPE_ERROR_INVALID_TYPE;
 
     memset(dest, 0, size);
-    return true;
+
+    return TYPE_OK;
 }
 
 /* Arithmetic */
-bool cv_type_add(CVType type, void* dest, const void* a, const void* b){
+TypeError cv_type_add(CVType type, void* dest, const void* a, const void* b){
 
     if( dest == NULL || a == NULL || b == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     int index = cv_type_index(type);
 
-    if( index < 0) return false;
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].adder == NULL)
-        return false;
+        return TYPE_INTERNAL_ERROR;
 
     return type_mappings[index].adder(dest, a, b);
 }
 
-bool cv_type_sub(CVType type, void* dest, const void* a, const void* b){
+TypeError cv_type_sub(CVType type, void* dest, const void* a, const void* b){
 
     if( dest == NULL || a == NULL || b == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     int index = cv_type_index(type);
 
-    if( index < 0) return false;
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].subtractor == NULL)
-        return false;
+        return TYPE_INTERNAL_ERROR;
 
     return type_mappings[index].subtractor(dest, a, b);
 }
 
-bool cv_type_mul(CVType type, void* dest, const void* a, const void* b){
+TypeError cv_type_mul(CVType type, void* dest, const void* a, const void* b){
 
     if( dest == NULL || a == NULL || b == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     int index = cv_type_index(type);
 
-    if( index < 0) return false;
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].multiplier == NULL)
-        return false;
+        return TYPE_INTERNAL_ERROR;
 
     return type_mappings[index].multiplier(dest, a, b);
 }
 
-bool cv_type_div(CVType type, void* dest, const void* a, const void* b){
+TypeError cv_type_div(CVType type, void* dest, const void* a, const void* b){
 
     if( dest == NULL || a == NULL || b == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     int index = cv_type_index(type);
 
-    if( index < 0) return false;
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].divider == NULL)
-        return false;
+        return TYPE_INTERNAL_ERROR;
 
     return type_mappings[index].divider(dest, a, b);
 }
 
 /* Limits */
-bool cv_type_min(CVType type, void *dest){
+TypeError cv_type_min(CVType type, void *dest){
 
     if( dest == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     int index = cv_type_index(type);
 
-    if( index < 0) return false;
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].min == NULL)
-        return false;
+        return TYPE_INTERNAL_ERROR;
 
     return type_mappings[index].min(dest);
 }
 
-bool cv_type_max(CVType type, void *dest){
+TypeError cv_type_max(CVType type, void *dest){
 
     if( dest == NULL )
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     int index = cv_type_index(type);
 
-    if( index < 0) return false;
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].max == NULL)
-        return false;
+        return TYPE_INTERNAL_ERROR;
 
     return type_mappings[index].max(dest);
 }
 
 /* String */
-bool cv_type_to_string(CVType type, char* string, const void* value){
+TypeError cv_type_to_string(CVType type, char* string, const void* value){
 
     if( string == NULL || value == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     int index = cv_type_index(type);
 
-    if( index < 0) return false;
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].to_string == NULL)
-        return false;
+        return TYPE_INTERNAL_ERROR;
 
     return type_mappings[index].to_string(string, value);
 }
 
-bool cv_type_from_string(CVType type, const char* string, void* value){
+TypeError cv_type_from_string(CVType type, const char* string, void* value){
 
     if( string == NULL || value == NULL)
-        return false;
+        return TYPE_ERROR_NULL_POINTER;
 
     int index = cv_type_index(type);
 
-    if( index < 0) return false;
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].from_string == NULL)
-        return false;
+        return TYPE_INTERNAL_ERROR;
 
-    return type_mappings[index].from_string(string, value);
+    return type_mappings[index].from_string(value, string);
 }

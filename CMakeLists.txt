@@ -49,6 +49,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     # minisocket
     utils
     filecore
+
+    type
 )
 
 # Header público exposto para quem linka com a lib

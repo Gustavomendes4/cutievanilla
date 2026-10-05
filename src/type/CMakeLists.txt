@@ -1,6 +1,6 @@
 
 add_library(type
-    type.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/type.c
 
     ${CMAKE_CURRENT_SOURCE_DIR}/primitive/int8.c
     ${CMAKE_CURRENT_SOURCE_DIR}/primitive/uint8.c
@@ -16,4 +16,6 @@ add_library(type
 target_include_directories(type
     PUBLIC
         ${PROJECT_SOURCE_DIR}/include
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
