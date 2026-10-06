@@ -1,19 +1,46 @@
 #ifndef CV_REGION_H_INCLUDED
 #define CV_REGION_H_INCLUDED
 
-#define CV_REGION(x, y, w, h) ((CVRegion){x, y, w, h})
+#define CV_REGION(x, y, w, h) ((CVRegion){(x), (y), (w), (h)})
 
 typedef struct _CVRegion{
 
-    int x;
-    int y;
+    long x;
+    long y;
     
-    int width;
-    int height;
+    long width;
+    long height;
 
 }CVRegion;
 
+/* validation */
+bool cv_region_is_valid(CVRegion region);
 
+/* geometry */
+long cv_region_right(CVRegion region);
 
+long cv_region_left(CVRegion region);
+
+long cv_region_top(CVRegion region);
+
+long cv_region_bottom(CVRegion region);
+
+long cv_region_area(CVRegion region);
+
+/* relation */
+bool cv_region_contains_point(CVRegion region, long x, long y);
+
+bool cv_region_contains(CVRegion outer, CVRegion inner);
+
+bool cv_region_intersects(CVRegion region1, CVRegion region2);
+
+bool cv_region_equals(CVRegion region1, CVRegion region2);
+
+/* operations */
+CVRegion cv_region_intersection(CVRegion region1, CVRegion region2);
+
+CVRegion cv_region_union(CVRegion region1, CVRegion region2);
+
+CVRegion cv_region_translated(CVRegion region, long dx, long dy);
 
 #endif // CV_REGION_H_INCLUDED

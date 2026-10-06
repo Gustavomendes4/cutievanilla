@@ -13,6 +13,7 @@ add_subdirectory(libs/raylib)
 
 # Adiciona dependências internas
 add_subdirectory(src/type)
+add_subdirectory(src/region)
 add_subdirectory(src/histogram)
 add_subdirectory(src/matrix)
 add_subdirectory(src/image)
@@ -39,6 +40,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 
     # Adiciona dependências internas
     type
+    region
     histogram
     matrix
     image
