@@ -18,13 +18,11 @@ add_subdirectory(
     # ${CMAKE_CURRENT_SOURCE_DIR}/raylib
 )
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/raylib)
-
 # ==============================================================================
 # 2. Cria o executável
 # ==============================================================================
 add_executable(run
-    ray.c
+    hist01.c
     # test_types.c
 )
 

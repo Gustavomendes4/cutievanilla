@@ -15,7 +15,7 @@ size_t get_value_bin(const CVHistogram* histogram, const void* value){
         const void *bin_value = values + (bin * histogram->element_size);
 
         // if( memcmp(bin_value, value, histogram->element_size) == 0){
-        if( cv_type_is_equals(histogram->type, bin_value, value) ){
+        if( cv_type_equals(histogram->type, bin_value, value) ){
             return bin;
         }
     }

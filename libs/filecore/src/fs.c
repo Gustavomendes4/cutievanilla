@@ -5,6 +5,7 @@
 #include <stdint.h> // util to use size_t
 #include <stdbool.h> // util to use bool
 
+#include "filecore.h"
 
 /*  File Operation  */
 bool fc_existsFile(const char* path){

@@ -24,10 +24,8 @@
 
 #include <errno.h>
 #include <string.h>
-#include <stdio.h>      // User FILE, fread, fopen, fwrite, fseek
-#include <stdbool.h>    // To use bool
-
-
+#include <stdio.h>      // Use: FILE, fread, fopen, fwrite, fseek
+#include <stdbool.h>    // Use: bool
 
 
 static const char* modeToStr(FC_OpenMode mode){
@@ -50,6 +48,7 @@ static const char* modeToStr(FC_OpenMode mode){
 }
 
 static FC_Result errorByerrno(){
+
     switch (errno){
 
             case ENOENT: return FC_File_Not_Exists;	        // Arquivo ou diretório não existe
@@ -114,8 +113,6 @@ FC_Result fc_close(FC_File* file){
     return FC_Success;
 }
 
-
-// Read and write functions
 size_t fc_read(FC_File* file, void* buffer, size_t maxBufferSize){
 
     if( file == NULL){

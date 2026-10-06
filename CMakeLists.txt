@@ -8,49 +8,40 @@ set(CMAKE_C_STANDARD 11)
 # Adiciona dependências externas
 add_subdirectory(libs/filecore)
 add_subdirectory(libs/utils)
+add_subdirectory(libs/raylib)
+
 
 # Adiciona dependências internas
 add_subdirectory(src/type)
+add_subdirectory(src/histogram)
+add_subdirectory(src/matrix)
+add_subdirectory(src/image)
 
 # Adiciona o executável principal
 set(LIB_SOURCES
-    # src/cutievanilla.c
-
-    src/image/io/image_io.c
-    src/image/image.c
-
-    src/matrix/matrix.c
-
-    src/histogram/histogram.c
-    src/histogram/io/histogram_io.c
-
-    # HISTOGRAMS Formats implementations
-    src/histogram/io/csv/csv_io.c
-    src/histogram/io/txt/txt_io.c
-    src/histogram/io/xlsx/xlsx_io.c
-
-    # Formats implementations
-    src/image/io/bmp/bmp_io.c
-    src/image/io/jpeg/jpeg_io.c
-    src/image/io/jpg/jpg_io.c
-    src/image/io/png/png_io.c
-    src/image/io/tiff/tiff_io.c
-    
+    src/cutievanilla.c    
 )
 
 # Cria lib static
-add_library(${PROJECT_NAME} STATIC
-    ${LIB_SOURCES}
-)
+add_library(${PROJECT_NAME} STATIC ${LIB_SOURCES})
+
+# Cria lib com INTERFACE
+# add_library(${PROJECT_NAME} INTERFACE)
 
 # Linkagem
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    # packet
-    # minisocket
+
+    # Adiciona dependências externas
     utils
     filecore
+    # packet
+    # minisocket
 
+    # Adiciona dependências internas
     type
+    histogram
+    matrix
+    image
 )
 
 # Header público exposto para quem linka com a lib
@@ -62,11 +53,4 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     
-)
-
-
-# Linka as dependências internas à biblioteca estática
-target_link_libraries(${PROJECT_NAME} PRIVATE
-    utils
-    filecore
 )
