@@ -3,6 +3,12 @@
 
 #define CV_REGION(x, y, w, h) ((CVRegion){(x), (y), (w), (h)})
 
+#define CV_MIN(n1, n2) ( (n1) < (n2) ? (n1) : (n2))
+
+#define CV_MAX(n1, n2) ( (n1) > (n2) ? (n1) : (n2))
+
+#define CV_ABS(n1) ( (n1) < (0) ? -(n1) : (n1))
+
 typedef struct _CVRegion{
 
     long x;

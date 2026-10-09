@@ -67,7 +67,7 @@ static const TypeMapping type_mappings[] = {
 
     { CV_FLOAT64,   8,  "float64" , false,  true,   true,  f64_equals, f64_comparer, f64_adder, f64_subtractor, f64_multiplier, f64_divider, f64_min, f64_max, f64_to_string, f64_from_string },
 
-    { CV_TYPE_UNKNOWED, 0, "Unknowed"}
+    { CV_TYPE_UNKNOWED, 0, "Unknowed", false, false, false, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL}
 };
 
 /* Internal */

@@ -3,12 +3,11 @@
 #include <stdlib.h>
 
 #include "cutievanilla.h"
-#include "cutievanilla/matrix.h"
 
 
 int main(int argc, char *argv[]) {
 
-    CVMatrix* matrix = cv_matrix_create(6, SZ_LIST(10, 10, 10, 10, 10, 10), CV_MATRIX_FLOAT32);
+    CVMatrix* matrix = cv_matrix_create(6, SZ_LIST(10, 10, 10, 10, 10, 10), CV_FLOAT32);
 
     if( matrix == NULL){
         fprintf(stderr, "Error to create matrix\n");

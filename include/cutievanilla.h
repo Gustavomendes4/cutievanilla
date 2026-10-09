@@ -13,11 +13,18 @@
 #define U32_LIST(...) (int16_t[]){__VA_ARGS__}
 #define I32_LIST(...) (int16_t[]){__VA_ARGS__}
 
-// #include "io/image_io.h"
+
+#include "cutievanilla/type.h"
+
+#include "cutievanilla/region.h"
+
+#include "cutievanilla/metadata.h"
+
+#include "cutievanilla/matrix.h"
+
+#include "cutievanilla/histogram.h"
+
+
 #include "cutievanilla/image.h"
-// #include "matrix/matrix.h"
-// #include "metadata/metadata.h"
-
-
 
 #endif // CUTIEVANILLA_H_INCLUDED

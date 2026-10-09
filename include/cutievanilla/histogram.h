@@ -72,4 +72,21 @@ void cv_histogram_clear(CVHistogram *histogram);
 
 bool cv_histogram_init_values(CVHistogram *histogram, const void *start, const void *step);
 
+
+/* ================================ */
+/* ======   histogram stats  ====== */
+/* ================================ */
+
+size_t cv_histogram_total(const CVHistogram* histogram);
+
+bool cv_histogram_min(const CVHistogram* histogram, void* value);
+
+bool cv_histogram_max(const CVHistogram* histogram, void* value);
+
+bool cv_histogram_mean(const CVHistogram* histogram, void* value);
+
+bool cv_histogram_median(const CVHistogram* histogram, void* value);
+
+bool cv_histogram_variance(const CVHistogram* histogram, void* value);
+
 #endif //CUTIEVANILLA_HISTOGRAM_H_INCLUDED

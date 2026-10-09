@@ -22,3 +22,8 @@ size_t get_value_bin(const CVHistogram* histogram, const void* value){
 
     return CV_INVALID_INDEX;
 }
+
+bool cv_histogram_qsort(CVHistogram* histogram){
+    
+    return true;
+}

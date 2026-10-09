@@ -5,10 +5,6 @@
 
 /* Public inclues*/
 #include "cutievanilla.h"
-#include "cutievanilla/type.h"
-#include "cutievanilla/matrix.h"
-#include "cutievanilla/histogram.h"
-#include "cutievanilla/region.h"
 
 #include "histogram_internal.h"
 

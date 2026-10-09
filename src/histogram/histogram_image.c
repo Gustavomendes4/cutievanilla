@@ -4,11 +4,6 @@
 
 /* Public inclues*/
 #include "cutievanilla.h"
-#include "cutievanilla/type.h"
-#include "cutievanilla/matrix.h"
-#include "cutievanilla/histogram.h"
-#include "cutievanilla/region.h"
-
 
 CVImage* cv_histogram_from_image(const CVImage* image, size_t channel);
 

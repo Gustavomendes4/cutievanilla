@@ -18,4 +18,7 @@
 
 size_t get_value_bin(const CVHistogram* histogram, const void* value);
 
+bool cv_histogram_qsort(CVHistogram* histogram);
+
+
 #endif //CV_HISTOGRAM_INTERNAL_H_INCLUDED

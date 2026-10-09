@@ -4,7 +4,7 @@
 
 #include <limits.h>
 
-#include "cutievanilla/matrix.h"
+#include "cutievanilla.h"
 
 #define INVALID_INDEX SIZE_MAX
 

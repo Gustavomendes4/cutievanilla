@@ -22,7 +22,7 @@ add_subdirectory(
 # 2. Cria o executável
 # ==============================================================================
 add_executable(run
-    hist01.c
+    haar.c
     # test_types.c
 )
 

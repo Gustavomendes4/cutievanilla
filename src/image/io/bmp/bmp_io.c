@@ -283,7 +283,7 @@ int cv_bmp_save(CVImage* image, const char* filename){
     uint8_t* row = calloc(1, row_padded);
 
     if( row == NULL){
-        fclose(NULL);
+        fclose(file);
         return 5;
     }
 

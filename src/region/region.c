@@ -1,15 +1,6 @@
 
 #include "cutievanilla.h"
 
-#include "cutievanilla/region.h"
-
-#define CV_MIN(n1, n2) ( (n1) < (n2) ? (n1) : (n2))
-
-#define CV_MAX(n1, n2) ( (n1) > (n2) ? (n1) : (n2))
-
-#define CV_ABS(n1) ( (n1) < (0) ? -(n1) : (n1))
-
-
 /* validation */
 bool cv_region_is_valid(CVRegion region){
     return region.height > 0 && region.width > 0;

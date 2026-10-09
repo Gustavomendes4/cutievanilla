@@ -29,7 +29,7 @@ static size_t num_of_channels(CVImageColorSpace color_space){
         case CV_COLOR_RGBA: return 4;
         case CV_COLOR_BIN:  return 1;
         case CV_COLOR_HSV:  return 3;
-        // case CV_COLOR_UNKNOWN:
+        case CV_COLOR_UNKNOWN:
     }
     
     return 0;
