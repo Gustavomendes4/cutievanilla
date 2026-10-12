@@ -22,3 +22,7 @@ TypeError u32_max(void* value);
 TypeError u32_to_string(char* string, const void* value);
 
 TypeError u32_from_string(void* value, const char* string);
+
+TypeError u32_can_convert(CVType type);
+
+TypeError u32_convert(void* dst, CVType dstType, const void* src);

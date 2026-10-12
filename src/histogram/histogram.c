@@ -170,19 +170,13 @@ bool cv_histogram_init_values(CVHistogram *histogram, const void *start, const v
 
 CVHistogram* cv_histogram_load(const char* filename){
 
-    if( !fc_isValidPath(filename) ) return NULL;
-
-    if( !fc_existsFile(filename) ) return NULL;
-
+    /* this is a public wrapper*/
     return cv_histogram_io_load(filename);
 }
 
 int cv_histogram_save(CVHistogram* histogram, const char* filename){
 
-    if( !fc_isValidPath(filename) ) return -1;
-
-    if( !histogram ) return -2;
-
+    /* this is a public wrapper*/
     return cv_histogram_io_save(histogram, filename);
 }
 

@@ -22,3 +22,7 @@ TypeError i32_max(void* value);
 TypeError i32_to_string(char* string, const void* value);
 
 TypeError i32_from_string(void* value, const char* string);
+
+TypeError i32_can_convert(CVType type);
+
+TypeError i32_convert(void* dst, CVType dstType, const void* src);

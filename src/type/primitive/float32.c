@@ -63,3 +63,15 @@ TypeError f32_from_string(void* value, const char* string){
     (const void*) value;
     return false;
 }
+
+TypeError f32_can_convert(CVType type){
+    (void)type;
+    return 0;
+}
+
+TypeError f32_convert(void* dst, CVType dstType, const void* src){
+    (void)dst;
+    (void)dstType;
+    (void)src;
+    return 0;
+}

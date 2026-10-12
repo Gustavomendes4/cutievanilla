@@ -44,6 +44,10 @@ typedef struct _TypeMapping{
     TypeError (*to_string)(char* string, const void* value);
 
     TypeError (*from_string)(void* value, const char* string);
+    
+    TypeError (*can_convert)(CVType type);
+
+    TypeError (*convert)(void* dst, CVType dstType, const void* src);
 
 }TypeMapping;
 
@@ -51,21 +55,21 @@ typedef struct _TypeMapping{
 static const TypeMapping type_mappings[] = {
 
     // type    |  size | string | is_int | is_float | is_signed | 
-    { CV_UINT8,     1,  "uint8"   , true,   false,  false, u8_equals, u8_comparer, u8_adder, u8_subtractor, u8_multiplier, u8_divider, u8_min, u8_max, u8_to_string, u8_from_string },
+    { CV_UINT8,     1,  "uint8"   , true,   false,  false, u8_equals, u8_comparer, u8_adder, u8_subtractor, u8_multiplier, u8_divider, u8_min, u8_max, u8_to_string, u8_from_string, u8_can_convert, u8_convert },
 
-    { CV_INT8,      1,  "int8"    , true,   false,  true,  i8_equals, i8_comparer, i8_adder, i8_subtractor, i8_multiplier, i8_divider, i8_min, i8_max, i8_to_string, i8_from_string },
+    { CV_INT8,      1,  "int8"    , true,   false,  true,  i8_equals, i8_comparer, i8_adder, i8_subtractor, i8_multiplier, i8_divider, i8_min, i8_max, i8_to_string, i8_from_string, i8_can_convert, i8_convert },
 
-    { CV_UINT16,    2,  "uint16"  , true,   false,  false, u16_equals, u16_comparer, u16_adder, u16_subtractor, u16_multiplier, u16_divider, u16_min, u16_max, u16_to_string, u16_from_string },
+    { CV_UINT16,    2,  "uint16"  , true,   false,  false, u16_equals, u16_comparer, u16_adder, u16_subtractor, u16_multiplier, u16_divider, u16_min, u16_max, u16_to_string, u16_from_string, u16_can_convert, u16_convert },
 
-    { CV_INT16,     2,  "int16"   , true,   false,  true,  i16_equals, i16_comparer, i16_adder, i16_subtractor, i16_multiplier, i16_divider, i16_min, i16_max, i16_to_string, i16_from_string },
+    { CV_INT16,     2,  "int16"   , true,   false,  true,  i16_equals, i16_comparer, i16_adder, i16_subtractor, i16_multiplier, i16_divider, i16_min, i16_max, i16_to_string, i16_from_string, i16_can_convert, i16_convert },
 
-    { CV_UINT32,    4,  "uint32"  , true,   false,  false, u32_equals, u32_comparer, u32_adder, u32_subtractor, u32_multiplier, u32_divider, u32_min, u32_max, u32_to_string, u32_from_string },
+    { CV_UINT32,    4,  "uint32"  , true,   false,  false, u32_equals, u32_comparer, u32_adder, u32_subtractor, u32_multiplier, u32_divider, u32_min, u32_max, u32_to_string, u32_from_string, u32_can_convert, u32_convert },
 
-    { CV_INT32,     4,  "int32"   , true,   false,  true,  i32_equals, i32_comparer, i32_adder, i32_subtractor, i32_multiplier, i32_divider, i32_min, i32_max, i32_to_string, i32_from_string },
+    { CV_INT32,     4,  "int32"   , true,   false,  true,  i32_equals, i32_comparer, i32_adder, i32_subtractor, i32_multiplier, i32_divider, i32_min, i32_max, i32_to_string, i32_from_string, i32_can_convert, i32_convert },
 
-    { CV_FLOAT32,   4,  "float32" , false,  true,   true,  f32_equals, f32_comparer, f32_adder, f32_subtractor, f32_multiplier, f32_divider, f32_min, f32_max, f32_to_string, f32_from_string },
+    { CV_FLOAT32,   4,  "float32" , false,  true,   true,  f32_equals, f32_comparer, f32_adder, f32_subtractor, f32_multiplier, f32_divider, f32_min, f32_max, f32_to_string, f32_from_string, f32_can_convert, f32_convert },
 
-    { CV_FLOAT64,   8,  "float64" , false,  true,   true,  f64_equals, f64_comparer, f64_adder, f64_subtractor, f64_multiplier, f64_divider, f64_min, f64_max, f64_to_string, f64_from_string },
+    { CV_FLOAT64,   8,  "float64" , false,  true,   true,  f64_equals, f64_comparer, f64_adder, f64_subtractor, f64_multiplier, f64_divider, f64_min, f64_max, f64_to_string, f64_from_string, f64_can_convert, f64_convert },
 
     { CV_TYPE_UNKNOWED, 0, "Unknowed", false, false, false, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL}
 };
@@ -210,7 +214,7 @@ TypeError cv_type_add(CVType type, void* dest, const void* a, const void* b){
     if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].adder == NULL)
-        return TYPE_INTERNAL_ERROR;
+        return TYPE_ERROR_INVALID_OPERATION;
 
     return type_mappings[index].adder(dest, a, b);
 }
@@ -225,7 +229,7 @@ TypeError cv_type_sub(CVType type, void* dest, const void* a, const void* b){
     if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].subtractor == NULL)
-        return TYPE_INTERNAL_ERROR;
+        return TYPE_ERROR_INVALID_OPERATION;
 
     return type_mappings[index].subtractor(dest, a, b);
 }
@@ -240,7 +244,7 @@ TypeError cv_type_mul(CVType type, void* dest, const void* a, const void* b){
     if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].multiplier == NULL)
-        return TYPE_INTERNAL_ERROR;
+        return TYPE_ERROR_INVALID_OPERATION;
 
     return type_mappings[index].multiplier(dest, a, b);
 }
@@ -255,7 +259,7 @@ TypeError cv_type_div(CVType type, void* dest, const void* a, const void* b){
     if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].divider == NULL)
-        return TYPE_INTERNAL_ERROR;
+        return TYPE_ERROR_INVALID_OPERATION;
 
     return type_mappings[index].divider(dest, a, b);
 }
@@ -271,7 +275,7 @@ TypeError cv_type_min(CVType type, void *dest){
     if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].min == NULL)
-        return TYPE_INTERNAL_ERROR;
+        return TYPE_ERROR_INVALID_OPERATION;
 
     return type_mappings[index].min(dest);
 }
@@ -286,7 +290,7 @@ TypeError cv_type_max(CVType type, void *dest){
     if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].max == NULL)
-        return TYPE_INTERNAL_ERROR;
+        return TYPE_ERROR_INVALID_OPERATION;
 
     return type_mappings[index].max(dest);
 }
@@ -302,7 +306,7 @@ TypeError cv_type_to_string(CVType type, char* string, const void* value){
     if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].to_string == NULL)
-        return TYPE_INTERNAL_ERROR;
+        return TYPE_ERROR_INVALID_OPERATION;
 
     return type_mappings[index].to_string(string, value);
 }
@@ -317,7 +321,35 @@ TypeError cv_type_from_string(CVType type, const char* string, void* value){
     if( index < 0) return TYPE_ERROR_INVALID_TYPE;
 
     if( type_mappings[index].from_string == NULL)
-        return TYPE_INTERNAL_ERROR;
+        return TYPE_ERROR_INVALID_OPERATION;
 
     return type_mappings[index].from_string(value, string);
+}
+
+/* Convertion */
+TypeError cv_type_can_convert(CVType dst, CVType src){
+
+    int index = cv_type_index(src);
+
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
+
+    if( type_mappings[index].can_convert == NULL)
+        return TYPE_ERROR_INVALID_OPERATION;
+
+    return type_mappings[index].can_convert(dst);
+}
+
+TypeError cv_type_convert(void* dst, CVType dstType, const void* src, CVType srcType){
+
+    if( dst == NULL )
+        return TYPE_ERROR_NULL_POINTER;
+
+    int index = cv_type_index(srcType);
+
+    if( index < 0) return TYPE_ERROR_INVALID_TYPE;
+
+    if( type_mappings[index].convert == NULL)
+        return TYPE_ERROR_INVALID_OPERATION;
+
+    return type_mappings[index].convert(dst, dstType, src);
 }

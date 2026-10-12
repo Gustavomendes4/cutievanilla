@@ -128,3 +128,16 @@ TypeError i16_from_string(void* value, const char* string){
     return TYPE_OK;
 
 }
+
+TypeError i16_can_convert(CVType type){
+    (void) type;
+    return 0;
+}
+
+TypeError i16_convert(void* dst, CVType dstType, const void* src){
+    (void)dst;
+    (void)dstType;
+    (void)src;
+
+    return 0;
+}

@@ -21,7 +21,8 @@ LIB = $(BUILD_DIR)/libmatrix.a
 
 # source code filelist
 SRC_FILES = \
-	matrix.c 
+	matrix.c \
+	matrix_internal.c 
 
 
 SRC = $(strip $(SRC_FILES))

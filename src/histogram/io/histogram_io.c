@@ -59,6 +59,10 @@ CVHistogramFileFormat cv_histogram_io_detect_format(const char* filename){
 
 CVHistogram* cv_histogram_io_load(const char* filename){
 
+    if( !fc_isValidPath(filename) ) return NULL;
+
+    if( !fc_existsFile(filename) ) return NULL;
+
     CVHistogramFileFormat format = cv_histogram_io_detect_format(filename);
     
     if( format == CV_INVALID_HISTOGRAM_FORMAT )
@@ -83,6 +87,10 @@ CVHistogram* cv_histogram_io_load(const char* filename){
 
 int cv_histogram_io_save(CVHistogram* histogram, const char* filename){
 
+    if( !fc_isValidPath(filename) ) return -1;
+
+    if( !histogram ) return -2;
+    
     /* Detect image format */
     CVHistogramFileFormat format = cv_histogram_io_detect_format(filename);
 

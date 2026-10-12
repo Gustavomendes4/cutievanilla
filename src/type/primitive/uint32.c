@@ -122,3 +122,15 @@ TypeError u32_from_string(void* value, const char* string){
     // ... not implemented yet
     return TYPE_OK;
 }
+
+TypeError u32_can_convert(CVType type){
+    (void)type;
+    return 0;
+}
+
+TypeError u32_convert(void* dst, CVType dstType, const void* src){
+    (void)dst;
+    (void)dstType;
+    (void)src;
+    return 0;
+}

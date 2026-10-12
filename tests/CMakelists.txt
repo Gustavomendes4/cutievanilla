@@ -16,7 +16,7 @@ add_subdirectory(
 # 2. Cria o executável
 # ==============================================================================
 add_executable(run
-    haar.c
+    region_split.c
     # test_types.c
 )
 

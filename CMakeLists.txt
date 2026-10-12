@@ -8,7 +8,7 @@ set(CMAKE_C_STANDARD 11)
 # Adiciona dependências externas
 add_subdirectory(libs/filecore)
 add_subdirectory(libs/utils)
-add_subdirectory(libs/raylib)
+# add_subdirectory(libs/raylib)
 
 
 # Adiciona dependências internas

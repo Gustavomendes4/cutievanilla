@@ -22,3 +22,7 @@ TypeError f64_max(void* value);
 TypeError f64_to_string(char* string, const void* value);
 
 TypeError f64_from_string(void* value, const char* string);
+
+TypeError f64_can_convert(CVType type);
+
+TypeError f64_convert(void* dst, CVType dstType, const void* src);

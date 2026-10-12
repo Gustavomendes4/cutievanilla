@@ -3,10 +3,14 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <limits.h>
 
 #include "cutievanilla/type.h"
 
 #define CV_MATRIX_MAGIC_NUMBER 0xCA
+
+#define INVALID_INDEX SIZE_MAX
+
 
 typedef struct _CVMatrix{
     
@@ -33,7 +37,7 @@ void cv_matrix_free(CVMatrix* matrix);
 
 CVMatrix* cv_matrix_clone(const CVMatrix* matrix);
 
-/* Type */
+/* Metadatas */
 size_t cv_matrix_get_dimension(const CVMatrix *matrix);
 
 const size_t *cv_matrix_get_shape(const CVMatrix *matrix);
@@ -42,15 +46,12 @@ size_t cv_matrix_element_count(const CVMatrix *matrix);
 
 size_t cv_matrix_element_size(const CVMatrix *matrix);
 
+CVType cv_matrix_get_type(const CVMatrix *matrix);
+
 /* access */
 const void* cv_matrix_get(const CVMatrix* matrix, const size_t* indices);
 
-const void* cv_matrix_get_flat(const CVMatrix* matrix, size_t index);
-
 void cv_matrix_set(CVMatrix* matrix, const size_t* indices, const void* value);
-
-void cv_matrix_set_flat(CVMatrix* matrix, size_t index, const void* value);
-
 
 /* Data */
 void cv_matrix_fill(CVMatrix *matrix, const void *value);

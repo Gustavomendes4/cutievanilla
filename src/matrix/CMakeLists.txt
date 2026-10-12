@@ -2,6 +2,7 @@
 
 add_library(matrix 
     matrix.c
+    matrix_internal.c
 )
 
 target_include_directories(matrix

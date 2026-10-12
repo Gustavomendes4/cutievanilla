@@ -22,3 +22,7 @@ TypeError u8_max(void* value);
 TypeError u8_to_string(char* string, const void* value);
 
 TypeError u8_from_string(void* value, const char* string);
+
+TypeError u8_can_convert(CVType type);
+
+TypeError u8_convert(void* dst, CVType dstType, const void* src);

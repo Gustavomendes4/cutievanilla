@@ -21,3 +21,7 @@ TypeError i8_max(void* value);
 TypeError i8_to_string(char* string, const void* value);
 
 TypeError i8_from_string(void* value, const char* string);
+
+TypeError i8_can_convert(CVType type);
+
+TypeError i8_convert(void* dst, CVType dstType, const void* src);

@@ -4,18 +4,22 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-typedef enum {
-    TYPE_OK = 0,
+typedef enum _TypeError{
+    TYPE_FALSE  = 1,
+    TYPE_OK     = 0,
 
-    TYPE_ERROR_NULL_POINTER     = 1,
-    TYPE_ERROR_INVALID_TYPE     = 2,
-    TYPE_INTERNAL_ERROR         = 3,
+    TYPE_ERROR_NULL_POINTER     = 2,
+    TYPE_ERROR_INVALID_TYPE     = 3,
+    TYPE_INTERNAL_ERROR         = 4,
 
-    TYPE_ERROR_DIVISION_BY_ZERO = 4,
-    TYPE_ERROR_OVERFLOW         = 5,
-    TYPE_ERROR_UNDERFLOW        = 6,
-    TYPE_ERROR_INVALID_VALUE    = 7,
-    TYPE_ERROR_INVALID_STRING   = 8
+    TYPE_ERROR_DIVISION_BY_ZERO = 5,
+    TYPE_ERROR_OVERFLOW         = 6,
+    TYPE_ERROR_UNDERFLOW        = 7,
+    TYPE_ERROR_INVALID_VALUE    = 8,
+    TYPE_ERROR_INVALID_STRING   = 9,
+
+    
+    TYPE_ERROR_INVALID_OPERATION = 10,
 
 }TypeError;
 

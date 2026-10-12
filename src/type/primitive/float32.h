@@ -21,3 +21,7 @@ TypeError f32_max(void* value);
 TypeError f32_to_string(char* string, const void* value);
 
 TypeError f32_from_string(void* value, const char* string);
+
+TypeError f32_can_convert(CVType type);
+
+TypeError f32_convert(void* dst, CVType dstType, const void* src);

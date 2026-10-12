@@ -21,3 +21,7 @@ TypeError i16_max(void* value);
 TypeError i16_to_string(char* string, const void* value);
 
 TypeError i16_from_string(void* value, const char* string);
+
+TypeError i16_can_convert(CVType type);
+
+TypeError i16_convert(void* dst, CVType dstType, const void* src);

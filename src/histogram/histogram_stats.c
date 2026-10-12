@@ -13,7 +13,6 @@ size_t cv_histogram_total(const CVHistogram* histogram){
     if(histogram == NULL)
         return 0;
 
-
     size_t amount = 0;
 
     for(size_t bin = 0; bin < histogram->bins; bin++){
@@ -86,6 +85,8 @@ bool cv_histogram_mean(const CVHistogram* histogram, void* value){
 
 bool cv_histogram_median(const CVHistogram* histogram, void* value){
 
+    // Implement **Quickselect** here -> O(n)
+    
     CVHistogram* clone = cv_histogram_clone(histogram);
 
     cv_histogram_qsort(clone);

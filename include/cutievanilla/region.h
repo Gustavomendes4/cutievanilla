@@ -49,4 +49,8 @@ CVRegion cv_region_union(CVRegion region1, CVRegion region2);
 
 CVRegion cv_region_translated(CVRegion region, long dx, long dy);
 
+CVRegion cv_region_subregion(CVRegion region, long x, long y, long width, long height);
+
+bool cv_region_split(CVRegion region, int rows, int cols, CVRegion* output);
+
 #endif // CV_REGION_H_INCLUDED

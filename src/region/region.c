@@ -1,4 +1,5 @@
 
+#include <limits.h>
 #include "cutievanilla.h"
 
 /* validation */
@@ -25,6 +26,14 @@ long cv_region_bottom(CVRegion region){
 
 long cv_region_area(CVRegion region){
     return region.width * region.height;
+}
+
+long cv_region_center_x(CVRegion region){
+    return region.x + (region.width / 2);
+}
+
+long cv_region_center_y(CVRegion region){
+    return region.y + (region.height/ 2);
 }
 
 /* relation */
@@ -102,4 +111,66 @@ CVRegion cv_region_union(CVRegion region1, CVRegion region2){
 
 CVRegion cv_region_translated(CVRegion region, long dx, long dy){
     return CV_REGION(region.x + dx, region.y + dy, region.width, region.height);
+}
+
+CVRegion cv_region_subregion(CVRegion region, long x, long y, long width, long height){
+    
+    CVRegion subregion = CV_REGION(
+        region.x + x,
+        region.y + y,
+        width,
+        height
+    );
+
+    return subregion;
+    // return cv_region_intersection(region, subregion); // limit in dad region
+
+}
+
+bool cv_region_split(CVRegion region, int rows, int cols, CVRegion* output){
+
+    /* Validations */
+    if( !cv_region_is_valid(region)) return false;
+
+    if( output == NULL) return false;
+
+    if(rows < 1 || cols < 1) return false;
+
+    if (cols > INT_MAX / rows) return false;
+
+    if (rows > region.height || cols > region.width) {
+        return false;
+    }
+
+    /* calculate dimentions */
+    long sub_width = region.width / cols;
+    long sub_height = region.height / rows;
+
+    long extra_width = region.width % cols;
+    long extra_height = region.height % rows;
+
+    /* fill array */
+    long y = region.y;
+
+    for (int row = 0; row < rows; row++) {
+
+        long height = sub_height + (row < extra_height ? 1 : 0);
+        long x = region.x;
+
+        for (int col = 0; col < cols; col++) {
+            long width = sub_width + (col < extra_width ? 1 : 0);
+
+            output[row * cols + col] = CV_REGION(
+                x,
+                y,
+                width,
+                height
+            );
+
+            x += width;
+        }
+
+        y += height;
+    }
+    return true;
 }
