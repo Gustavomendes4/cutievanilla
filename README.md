@@ -1,27 +1,23 @@
 # cutievanilla
 
 A pasta public é /include/, enquanto os submódulos estão dentro de /src/cutievanilla/
-
 assim, a lib pode ser importada com :   #include "cutievanilla.h"
 
-e os modulos publico como:  #include "cutievanilla/matrix.h"
-
-
-
+# MATRIZES
 ===================   LISTA DE FUNÇÕES EM MATRIZES     ===================
 |
 |----matrix.c — núcleo
 |    |----[x] cv_matrix_create()
 |    |----[x] cv_matrix_free()
 |    |----[x] cv_matrix_clone()
-|
+|    |
 |    |----[x] cv_matrix_get_dimension()
 |    |----[x] cv_matrix_get_shape()
 |    |----[x] cv_matrix_element_count()
 |    |----[x] cv_matrix_element_size()
-|
+|    |
 |    |----[x] cv_matrix_get()
-|    |----[x] cv_matrix_set()
+|    L----[x] cv_matrix_set()
 |
 |----matrix_arithmetic.c — Aritmética
 |    |----[ ] cv_matrix_fill()
@@ -32,7 +28,7 @@ e os modulos publico como:  #include "cutievanilla/matrix.h"
 |    |----[ ] cv_matrix_divide()
 |    |
 |    |----[ ] cv_matrix_scale()
-|    |----[ ] cv_matrix_add_scalar()
+|    L----[ ] cv_matrix_add_scalar()
 |
 |----matrix_geometry.c — Geometria
 |    |----[ ] ... { Operações de algebra linear e geometria analítica }
@@ -43,23 +39,25 @@ e os modulos publico como:  #include "cutievanilla/matrix.h"
 |    |----[ ] cv_matrix_reshape()
 |    |----[ ] cv_matrix_permute_axes()
 |    |----[ ] cv_matrix_slice()
-|    |----[ ] cv_matrix_copy_region()
+|    L----[ ] cv_matrix_copy_region()
 |
 |----matrix_compare.c — Compare
 |    |----[ ] cv_matrix_same_shape()
 |    |----[ ] cv_matrix_same_type()
-|    |----[ ] cv_matrix_equals()
+|    L----[ ] cv_matrix_equals()
 |
 L----matrix_stats.c — Statistic
      |----[ ] cv_matrix_min()
      |----[ ] cv_matrix_max()
      |----[ ] cv_matrix_sum()
      |----[ ] cv_matrix_mean()
-     |----[ ] cv_matrix_variance()
+     L----[ ] cv_matrix_variance()
 
 
+# METADADOS
 ===================   LISTA DE FUNÇÕES EM METADADOS    ===================
 
+# TIPOS
 ===================   LISTA DE FUNÇÕES EM TIPOS        ===================
 |
 |----types.c — núcleo
@@ -87,7 +85,7 @@ L----matrix_stats.c — Statistic
 |    |----[x] cv_type_from_string()
 |    |
 |    |----[x] cv_type_can_convert()
-|    |----[x] cv_type_convert()
+|    L----[x] cv_type_convert()
 |
 |----types.c — Primitive types
 |    |----[x] UINT8
@@ -97,15 +95,17 @@ L----matrix_stats.c — Statistic
 |    |----[x] UINT32
 |    |----[x] INT32
 |    |----[ ] FLOAT32
-|    |----[ ] FLOAT64
+|    L----[ ] FLOAT64
 
+# IMAGENS
 ===================   LISTA DE FUNÇÕES EM IMAGENS      ===================
 (...)
 
+# REGION
 ===================   LISTA DE FUNÇÕES EM REGION      ===================
 |
 |----region.c — núcleo
-|    |----[x] cv_region_is_valid()
+|    L----[x] cv_region_is_valid()
 |
 |----region.c — Geometria
 |    |----[x] cv_region_right()
@@ -114,22 +114,23 @@ L----matrix_stats.c — Statistic
 |    |----[x] cv_region_bottom()
 |    |----[x] cv_region_area()
 |    |----[x] cv_region_center_x()
-|    |----[x] cv_region_center_y()
+|    L----[x] cv_region_center_y()
 |
 |----region.c — Relação
 |    |----[x] cv_region_contains_point()
 |    |----[x] cv_region_contains()
 |    |----[x] cv_region_intersects()
-|    |----[x] cv_region_equals()
+|    L----[x] cv_region_equals()
 |
 L----region.c — Operacoes Geometricas
      |----[x] cv_region_translated()
      |----[x] cv_region_intersection()
      |----[x] cv_region_union()
      |----[x] cv_region_subregion()
-     |----[x] cv_region_split()
+     L----[x] cv_region_split()
 
 
+# HISTOGRAMAS
 ===================   LISTA DE FUNÇÕES EM HISTOGRAMAS  ===================
 |
 |----histogram.c — núcleo
@@ -163,7 +164,7 @@ L----region.c — Operacoes Geometricas
 |
 |
 |----histogram_search.c — busca de bins
-|
+|    |
 |    |----[ ] cv_histogram_find_bin()
 |    |----[ ] cv_histogram_find_nearest_bin()
 |    |
@@ -198,7 +199,7 @@ L----region.c — Operacoes Geometricas
 |
 |
 |----histogram_distribution.c — distribuição de probabilidade
-|
+|    |
 |    |----[ ] cv_histogram_probability()
 |    |----[ ] cv_histogram_cdf()
 |    |
@@ -207,7 +208,7 @@ L----region.c — Operacoes Geometricas
 |
 |
 |----histogram_transform.c — transformações
-|
+|    |
 |    |----[ ] cv_histogram_normalize()
 |    |----[ ] cv_histogram_normalize_range()
 |    |
@@ -216,7 +217,7 @@ L----region.c — Operacoes Geometricas
 |    L----[ ] cv_histogram_clip()
 |
 |----histogram_compare.c — comparação
-|
+|    |
 |    |----[ ] cv_histogram_equals()
 |    |
 |    |----[ ] cv_histogram_distance_euclidean()
@@ -233,17 +234,17 @@ L----region.c — Operacoes Geometricas
 |    L----[ ] cv_histogram_correlation()
 |
 |----histogram_rebin.c
-|
+|    |
 |    |----[ ] cv_histogram_rebin()
 |    L----[ ] cv_histogram_merge_bins()
 |
 |----histogram_filter.c
-|
+|    |
 |    |----[ ] cv_histogram_smooth()
 |    L----[ ] cv_histogram_blur()
 |
 |----histogram_matrix.c — Matrix → Histogram
-|
+|    |
 |    |----[ ] cv_histogram_from_matrix()
 |    |----[ ] cv_histogram_add_matrix()
 |    |
@@ -257,7 +258,7 @@ L----region.c — Operacoes Geometricas
 |    L----[ ] cv_histogram_add_matrix_mask()
 |
 |----histogram_image.c — Image → Histogram
-|
+|    |
 |    |----[ ] cv_histogram_from_image_channel()
 |    |----[ ] cv_histogram_add_image()
 |    |
@@ -274,3 +275,26 @@ L----histogram_io.c — entrada/saída
      L----[ ] cv_histogram_save()
 
 
+# Commits Pendentes
+     * Concluir definição da API Matrix
+     * Definição da API de Image
+     * No módulo Types, implementar: to_str, from_str, can_convert, convert
+     * No módulo Types, implementar float32 e float64
+
+     * Concluir MATRIX
+     * Concluir IMAGE
+     * Concluir HISTOGRAM
+     * Implementação de METADATA
+     
+     * Concluir:    /image/io/bmp
+     * implementar: /image/io/jpeg
+     * implementar: /image/io/jpg
+     * implementar: /image/io/png
+     * implementar: /image/io/tiff
+
+     * concluir: /histogram/io/csv
+     * implementar: /histogram/io/txt
+     * implementar: /histogram/io/xlsx
+
+     * Definicao de código de retorno de erro para histogram_save
+     
