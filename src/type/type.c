@@ -8,11 +8,7 @@
 
 #include "type_internal.h"
 
-#define CV_TYPE_STRING_LENGTH 32
-
 typedef struct _TypeMapping{
-
-    CVType type;
 
     size_t size;
 
@@ -53,40 +49,175 @@ typedef struct _TypeMapping{
 
 
 static const TypeMapping type_mappings[] = {
+ 
+    [(int)CV_UINT8] = {
+        1,
+        "uint8",
+        true, false, false,
+        u8_equals,
+        u8_comparer,
+        u8_adder,
+        u8_subtractor,
+        u8_multiplier,
+        u8_divider,
+        u8_min,
+        u8_max,
+        u8_to_string,
+        u8_from_string,
+        u8_can_convert,
+        u8_convert
+    },
 
-    // type    |  size | string | is_int | is_float | is_signed | 
-    { CV_UINT8,     1,  "uint8"   , true,   false,  false, u8_equals, u8_comparer, u8_adder, u8_subtractor, u8_multiplier, u8_divider, u8_min, u8_max, u8_to_string, u8_from_string, u8_can_convert, u8_convert },
+    [(int)CV_INT8] = {
+        1,
+        "int8",
+        true, false, true,
+        i8_equals,
+        i8_comparer,
+        i8_adder,
+        i8_subtractor,
+        i8_multiplier,
+        i8_divider,
+        i8_min,
+        i8_max,
+        i8_to_string,
+        i8_from_string,
+        i8_can_convert,
+        i8_convert
+    },
 
-    { CV_INT8,      1,  "int8"    , true,   false,  true,  i8_equals, i8_comparer, i8_adder, i8_subtractor, i8_multiplier, i8_divider, i8_min, i8_max, i8_to_string, i8_from_string, i8_can_convert, i8_convert },
+    [(int)CV_UINT16] = {
+        2,
+        "uint16",
+        true, false, false,
+        u16_equals,
+        u16_comparer,
+        u16_adder,
+        u16_subtractor,
+        u16_multiplier,
+        u16_divider,
+        u16_min,
+        u16_max,
+        u16_to_string,
+        u16_from_string,
+        u16_can_convert,
+        u16_convert
+    },
 
-    { CV_UINT16,    2,  "uint16"  , true,   false,  false, u16_equals, u16_comparer, u16_adder, u16_subtractor, u16_multiplier, u16_divider, u16_min, u16_max, u16_to_string, u16_from_string, u16_can_convert, u16_convert },
+    [(int)CV_INT16] = {
+        2,
+        "int16",
+        true, false, true,
+        i16_equals,
+        i16_comparer,
+        i16_adder,
+        i16_subtractor,
+        i16_multiplier,
+        i16_divider,
+        i16_min,
+        i16_max,
+        i16_to_string,
+        i16_from_string,
+        i16_can_convert,
+        i16_convert
+    },
 
-    { CV_INT16,     2,  "int16"   , true,   false,  true,  i16_equals, i16_comparer, i16_adder, i16_subtractor, i16_multiplier, i16_divider, i16_min, i16_max, i16_to_string, i16_from_string, i16_can_convert, i16_convert },
+    [(int)CV_UINT32] = {
+        4,
+        "uint32",
+        true, false, false,
+        u32_equals,
+        u32_comparer,
+        u32_adder,
+        u32_subtractor,
+        u32_multiplier,
+        u32_divider,
+        u32_min,
+        u32_max,
+        u32_to_string,
+        u32_from_string,
+        u32_can_convert,
+        u32_convert
+    },
 
-    { CV_UINT32,    4,  "uint32"  , true,   false,  false, u32_equals, u32_comparer, u32_adder, u32_subtractor, u32_multiplier, u32_divider, u32_min, u32_max, u32_to_string, u32_from_string, u32_can_convert, u32_convert },
+    [(int)CV_INT32] = {
+        4,
+        "int32",
+        true, false, true,
+        i32_equals,
+        i32_comparer,
+        i32_adder,
+        i32_subtractor,
+        i32_multiplier,
+        i32_divider,
+        i32_min,
+        i32_max,
+        i32_to_string,
+        i32_from_string,
+        i32_can_convert,
+        i32_convert
+    },
 
-    { CV_INT32,     4,  "int32"   , true,   false,  true,  i32_equals, i32_comparer, i32_adder, i32_subtractor, i32_multiplier, i32_divider, i32_min, i32_max, i32_to_string, i32_from_string, i32_can_convert, i32_convert },
+    [(int)CV_FLOAT32] = {
+        4,
+        "float32",
+        false, true, true,
+        f32_equals,
+        f32_comparer,
+        f32_adder,
+        f32_subtractor,
+        f32_multiplier,
+        f32_divider,
+        f32_min,
+        f32_max,
+        f32_to_string,
+        f32_from_string,
+        f32_can_convert,
+        f32_convert
+    },
 
-    { CV_FLOAT32,   4,  "float32" , false,  true,   true,  f32_equals, f32_comparer, f32_adder, f32_subtractor, f32_multiplier, f32_divider, f32_min, f32_max, f32_to_string, f32_from_string, f32_can_convert, f32_convert },
+    [(int)CV_FLOAT64] = {
+        8,
+        "float64",
+        false, true, true,
+        f64_equals,
+        f64_comparer,
+        f64_adder,
+        f64_subtractor,
+        f64_multiplier,
+        f64_divider,
+        f64_min,
+        f64_max,
+        f64_to_string,
+        f64_from_string,
+        f64_can_convert,
+        f64_convert
+    },
 
-    { CV_FLOAT64,   8,  "float64" , false,  true,   true,  f64_equals, f64_comparer, f64_adder, f64_subtractor, f64_multiplier, f64_divider, f64_min, f64_max, f64_to_string, f64_from_string, f64_can_convert, f64_convert },
-
-    { CV_TYPE_UNKNOWED, 0, "Unknowed", false, false, false, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL}
+    [(int)CV_TYPE_COUNT] = {
+        0,
+        "Unknowed",
+        false, false, false,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL
+    }
 };
 
 /* Internal */
 static int cv_type_index( CVType type){
 
-    if( type == CV_TYPE_UNKNOWED)
+    if( (int)type < 0 || type >= CV_TYPE_COUNT)
         return -1;
 
-    for( size_t i = 0; type_mappings[i].type != CV_TYPE_UNKNOWED; i++){
-
-        if( type_mappings[i].type == type)
-            return i;
-    }
-
-    return -2;
+    return (int)type;
 }
 
 /* Identification */
@@ -165,12 +296,15 @@ bool cv_type_equals(CVType type, const void* a, const void* b){
 
 int cv_type_compare(CVType type, const void* a, const void* b){
 
-    if( a == NULL || b == NULL || type == CV_TYPE_UNKNOWED)
+    if( a == NULL || b == NULL )
         return INT_MIN;
 
     int index = cv_type_index(type);
 
     if( index < 0) return INT_MIN;
+
+    if( type_mappings[index].comparer == NULL )
+        return INT_MIN;
 
     return type_mappings[index].comparer(a, b);
 }

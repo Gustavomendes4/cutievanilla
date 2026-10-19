@@ -24,16 +24,18 @@ typedef enum _TypeError{
 }TypeError;
 
 typedef enum _CVType{
-    CV_UINT8 = 0,
-    CV_INT8,
-    CV_UINT16,
-    CV_INT16,
-    CV_UINT32,
-    CV_INT32,
-    CV_FLOAT32,
-    CV_FLOAT64,
+    CV_UINT8    = 0,
+    CV_INT8     = 1,
+    CV_UINT16   = 2,
+    CV_INT16    = 3,
+    CV_UINT32   = 4,
+    CV_INT32    = 5,
+    CV_FLOAT32  = 6,
+    CV_FLOAT64  = 7,
 
-    CV_TYPE_UNKNOWED
+    CV_TYPE_COUNT = 8,
+
+    CV_TYPE_UNKNOWED = -1
 
 }CVType;
 
