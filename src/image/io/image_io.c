@@ -17,7 +17,7 @@ struct Format{
 
     CVImage* (*loader)(const char*);
     
-    int (*saver)(CVImage*, const char*);
+    int (*saver)(const CVImage*, const char*);
 
 };
 
@@ -92,7 +92,7 @@ CVImage* cv_image_io_load(const char* filename){
     return NULL;
 }
 
-int cv_image_io_save(CVImage* image, const char* filename){
+int cv_image_io_save(const CVImage* image, const char* filename){
 
     /* Detect image format */
     CVImageFileFormat format = cv_image_io_detect_format(filename);

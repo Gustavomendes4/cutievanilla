@@ -12,7 +12,7 @@ CVImage* cv_jpg_load( const char* filename){
     return NULL;
 }
 
-int cv_jpg_save(CVImage* image, const char* filename){
+int cv_jpg_save(const CVImage* image, const char* filename){
     
     printf("JPG nao implementado ainda\n");
     exit(1);

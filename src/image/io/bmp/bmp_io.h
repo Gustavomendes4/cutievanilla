@@ -48,7 +48,7 @@ typedef struct _Bitmap{
 
 CVImage* cv_bmp_load( const char* filename);
 
-int cv_bmp_save(CVImage* image, const char* filename);
+int cv_bmp_save(const CVImage* image, const char* filename);
 
 bool cv_is_valid_bmp_file(const char* filename);
 

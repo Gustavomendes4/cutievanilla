@@ -29,6 +29,6 @@ CVImageFileFormat cv_image_io_detect_format(const char* filename);
 
 CVImage* cv_image_io_load(const char* filename);
 
-int cv_image_io_save(CVImage* image, const char* filename);
+int cv_image_io_save(const CVImage* image, const char* filename);
 
 #endif // CUTIEVANILLA_IO_H_INCLUDED

@@ -11,7 +11,7 @@ CVImage* cv_png_load( const char* filename){
     return NULL;
 }
 
-int cv_png_save(CVImage* image, const char* filename){
+int cv_png_save(const CVImage* image, const char* filename){
     printf("PNG nao implementado ainda\n");
     exit(1);
     return 1;

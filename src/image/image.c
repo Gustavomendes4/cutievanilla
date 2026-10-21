@@ -89,21 +89,20 @@ CVImage* cv_image_clone(const CVImage* image){
     if( image == NULL)
         return NULL;
 
-    /* Create new image */
-    CVImage* new = cv_image_create(
-        cv_image_width(image),
-        cv_image_height(image),
-        cv_image_get_colorformat(image),
-        cv_matrix_get_type(image->matrix)
-    );
-
-    if( new == NULL ){ return NULL; }
-
-    /* copy matrix */
-    memcpy( new->matrix->data, image->matrix->data, cv_matrix_total_bytes( new->matrix ));
-
-    new->meta_data = image->meta_data;
+    CVImage* new = (CVImage*)malloc(sizeof(CVImage));
     
+    if( new == NULL ){ return NULL; }
+    
+    new->matrix = cv_matrix_clone(image->matrix);
+    
+    if( new->matrix == NULL){
+        free(new);
+        return NULL;
+    }
+
+    new->color_format = cv_image_get_colorformat(image);
+    new->meta_data = image->meta_data;
+
     return new;
 }
 

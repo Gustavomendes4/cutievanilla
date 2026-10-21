@@ -213,7 +213,7 @@ CVImage* cv_bmp_load(const char* filename){
     return img;
 }
 
-int cv_bmp_save(CVImage* image, const char* filename){
+int cv_bmp_save(const CVImage* image, const char* filename){
 
     if( image == NULL || image->matrix == NULL){
         return 1;

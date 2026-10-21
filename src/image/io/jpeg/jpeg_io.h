@@ -9,7 +9,7 @@ typedef struct _CVImage CVImage;
 
 CVImage* cv_jpeg_load( const char* filename);
 
-int cv_jpeg_save(CVImage* image, const char* filename);
+int cv_jpeg_save(const CVImage* image, const char* filename);
 
 bool cv_is_valid_jpeg_file(const char* filename);
 

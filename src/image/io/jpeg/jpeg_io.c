@@ -13,7 +13,7 @@ CVImage* cv_jpeg_load( const char* filename){
     return NULL;
 }
 
-int cv_jpeg_save(CVImage* image, const char* filename){
+int cv_jpeg_save(const CVImage* image, const char* filename){
         
     printf("JPEG nao implementado ainda\n");
     exit(1);

@@ -9,7 +9,7 @@ CVImage* cv_tiff_load( const char* filename){
     return NULL;
 }
 
-int cv_tiff_save(CVImage* image, const char* filename){
+int cv_tiff_save(const CVImage* image, const char* filename){
     printf("TIFF nao implementado ainda\n");
     exit(1);
     return 0;
