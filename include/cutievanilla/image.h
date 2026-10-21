@@ -10,10 +10,11 @@
 typedef struct _CVMatrix CVMatrix;
 
 
-/* ========================= */
-/* Image format              */
-/* ========================= */
 
+
+/* ========================= */
+/* Color space              */
+/* ========================= */
 typedef enum {
     CV_COLOR_UNKNOWN,
     CV_COLOR_GRAY,
@@ -32,17 +33,18 @@ typedef enum {
         - CMYK      ( 32 bits/pixel) (ciano, magenta, amarelo e preto)
         - HSV      ( 24 bits/pixel) (matiz, saturação e valor)
     */
-}CVImageColorSpace;
+}CVColorSpace;
+
+typedef int8_t ColorSpace_or_Channels;
 
 /* ========================= */
 /* Image                     */
 /* ========================= */
-
 typedef struct _CVImage{
     
     CVMatrix* matrix;
     
-    CVImageColorSpace color_format;
+    CVColorSpace color_format;
 
     CVMetaData meta_data; // not implemented yet
 
@@ -54,14 +56,17 @@ typedef struct _CVImage{
 /* Creation / destruction    */
 /* ========================= */
 
-CVImage* cv_image_create(size_t width, size_t height, CVImageColorSpace channels, CVType data_type);
+CVImage* cv_image_create(size_t width, size_t height, CVColorSpace color_space, CVType data_type);
 
 CVImage* cv_image_load(const char* filename);
 
-int cv_image_save(CVImage* image, const char* filename);
+CVImage* cv_image_clone(const CVImage* image);
 
-void cv_image_free( CVImage* image);
+int cv_image_save(const CVImage* image, const char* filename);
 
+void cv_image_free(CVImage* image);
+
+CVImage* cv_image_convert(const CVImage* image, CVColorSpace color_space);
 
 /* ========================= */
 /* Information               */
@@ -72,7 +77,7 @@ size_t cv_image_height(const CVImage *image);
 
 size_t cv_image_channels(const CVImage *image);
 
-CVImageColorSpace cv_image_get_colorformat(const CVImage *image);
+CVColorSpace cv_image_get_colorformat(const CVImage *image);
 
 
 /* ========================= */

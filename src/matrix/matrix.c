@@ -155,6 +155,14 @@ size_t cv_matrix_element_size(const CVMatrix *matrix){
     return matrix->element_size;
 }
 
+size_t cv_matrix_total_bytes(const CVMatrix *matrix){
+    
+    if( !is_matrix_valid(matrix) )
+        return 0;
+    
+    return matrix->element_size * matrix->total_elements;
+}
+
 CVType cv_matrix_get_type(const CVMatrix *matrix){
     
     if( !is_matrix_valid(matrix) )

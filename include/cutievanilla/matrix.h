@@ -46,6 +46,8 @@ size_t cv_matrix_element_count(const CVMatrix *matrix);
 
 size_t cv_matrix_element_size(const CVMatrix *matrix);
 
+size_t cv_matrix_total_bytes(const CVMatrix *matrix);
+
 CVType cv_matrix_get_type(const CVMatrix *matrix);
 
 /* access */

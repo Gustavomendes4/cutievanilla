@@ -214,7 +214,6 @@ CVImage* cv_bmp_load(const char* filename){
 }
 
 int cv_bmp_save(CVImage* image, const char* filename){
-    
 
     if( image == NULL || image->matrix == NULL){
         return 1;
@@ -233,14 +232,13 @@ int cv_bmp_save(CVImage* image, const char* filename){
     const size_t row_size = width * 3;
 
     const size_t row_padded = (row_size + 3) & ~((size_t)3);
-
+    
     /* Calculate header infos */
     const size_t image_size = row_padded * height;
 
     const size_t pixel_offset = sizeof(BitmapFileHeader) + sizeof(BitmapInfoHeader);
 
     const size_t file_size = pixel_offset + image_size;
-
 
     /*  File Header   */
     BitmapFileHeader fileHeader = {
@@ -266,7 +264,6 @@ int cv_bmp_save(CVImage* image, const char* filename){
         .biClrImportant  = 0
     };
 
-
     /* Write headers in file*/
     if( fwrite(&fileHeader, sizeof(BitmapFileHeader), 1, file) != 1){
         fclose(file);
@@ -278,7 +275,6 @@ int cv_bmp_save(CVImage* image, const char* filename){
         return 4;
     }
 
-    
     /* allocate 1 BMP row*/
     uint8_t* row = calloc(1, row_padded);
 
@@ -287,7 +283,7 @@ int cv_bmp_save(CVImage* image, const char* filename){
         return 5;
     }
 
-
+    
     /*
     * BMP is bottom-up.
     *

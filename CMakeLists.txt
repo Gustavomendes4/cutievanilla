@@ -20,7 +20,7 @@ add_subdirectory(src/image)
 
 # Adiciona o executável principal
 set(LIB_SOURCES
-    src/cutievanilla.c    
+    src/cutievanilla.c
 )
 
 # Cria lib static

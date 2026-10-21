@@ -1,0 +1,15 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/Gustavo/Desktop/cutievanillacpp/examples/build/cmake_install.cmake",
+		"C:/Users/Gustavo/Desktop/cutievanillacpp/examples/build/cutievanilla_build/cmake_install.cmake",
+		"C:/Users/Gustavo/Desktop/cutievanillacpp/examples/build/cutievanilla_build/libs/filecore/cmake_install.cmake",
+		"C:/Users/Gustavo/Desktop/cutievanillacpp/examples/build/cutievanilla_build/libs/utils/cmake_install.cmake",
+		"C:/Users/Gustavo/Desktop/cutievanillacpp/examples/build/cutievanilla_build/src/type/cmake_install.cmake",
+		"C:/Users/Gustavo/Desktop/cutievanillacpp/examples/build/cutievanilla_build/src/region/cmake_install.cmake",
+		"C:/Users/Gustavo/Desktop/cutievanillacpp/examples/build/cutievanilla_build/src/histogram/cmake_install.cmake",
+		"C:/Users/Gustavo/Desktop/cutievanillacpp/examples/build/cutievanilla_build/src/matrix/cmake_install.cmake",
+		"C:/Users/Gustavo/Desktop/cutievanillacpp/examples/build/cutievanilla_build/src/image/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

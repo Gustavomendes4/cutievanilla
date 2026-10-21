@@ -20,7 +20,7 @@
 #include "cutievanilla/matrix.h"
 #include "cutievanilla/image.h"
 
-static size_t num_of_channels(CVImageColorSpace color_space){
+static size_t num_of_channels(CVColorSpace color_space){
 
     switch(color_space){
 
@@ -38,16 +38,15 @@ static size_t num_of_channels(CVImageColorSpace color_space){
 /*                      */
 /*   Public functions   */
 /*                      */
-CVImage* cv_image_create(size_t width, size_t height, CVImageColorSpace color_space, CVType data_type){
+CVImage* cv_image_create(size_t width, size_t height, CVColorSpace color_space, CVType data_type){
 
-    size_t channels = num_of_channels(color_space);
-
+    /* se clrspc_or_chn < 0, considera-se um ENUM, caso contrário, o númetro de canais */
+    size_t channels = num_of_channels((CVColorSpace )color_space);
+    
     if(
         width == 0      ||
         height == 0     ||
-        channels == 0   //||
-        // !is_valid_image_data_type(data_type)
-        
+        channels == 0        
     ){
         return NULL;
     }
@@ -85,7 +84,30 @@ CVImage* cv_image_load( const char* filename){
     return cv_image_io_load(filename);
 }
 
-int cv_image_save(CVImage* image, const char* filename){
+CVImage* cv_image_clone(const CVImage* image){
+
+    if( image == NULL)
+        return NULL;
+
+    /* Create new image */
+    CVImage* new = cv_image_create(
+        cv_image_width(image),
+        cv_image_height(image),
+        cv_image_get_colorformat(image),
+        cv_matrix_get_type(image->matrix)
+    );
+
+    if( new == NULL ){ return NULL; }
+
+    /* copy matrix */
+    memcpy( new->matrix->data, image->matrix->data, cv_matrix_total_bytes( new->matrix ));
+
+    new->meta_data = image->meta_data;
+    
+    return new;
+}
+
+int cv_image_save(const CVImage* image, const char* filename){
 
     /* Previous conditions */
     if( !fc_isValidPath(filename) ) return -1;
@@ -102,6 +124,20 @@ void cv_image_free( CVImage* image){
     cv_matrix_free(image->matrix);
 
     free(image);
+
+}
+
+CVImage* cv_image_convert( const CVImage* image, CVColorSpace color_space){
+    
+    if(image == NULL)
+        return NULL;
+
+    if( cv_image_get_colorformat(image) == color_space)
+        return cv_image_clone(image);
+
+    // apenas converção para gray implementado
+
+    // if()
 
 }
 
@@ -144,7 +180,7 @@ size_t cv_image_channels(const CVImage *image){
     return shape[2];
 }
 
-CVImageColorSpace cv_image_get_colorformat(const CVImage *image){
+CVColorSpace cv_image_get_colorformat(const CVImage *image){
 
     if( image == NULL)
         return 0;

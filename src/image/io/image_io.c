@@ -47,7 +47,14 @@ bool cv_image_io_validate_format(const char* filename, CVImageFileFormat format)
 
 CVImageFileFormat cv_image_io_detect_format(const char* filename){
 
-    const char* ext = fc_getExtension(filename) + 1;
+    const char* ext = fc_getExtension(filename);
+
+    /* Protection to invalid path */
+    if(ext == NULL)
+        return CV_INVALID_IMAGE_FORMAT;
+
+    /* exclude '.' */
+    ext++;
 
     for( int i = 0; FormatList[i].format != CV_INVALID_IMAGE_FORMAT; i++ ){
 

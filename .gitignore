@@ -1,6 +1,7 @@
 /build/
 
 /tests/build/
+/examples/build/
 
 /images/*
 

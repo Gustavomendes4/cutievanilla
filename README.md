@@ -81,11 +81,11 @@ L----matrix_stats.c — Statistic
 |    |----[x] cv_type_min()
 |    |----[x] cv_type_max()
 |    |
-|    |----[x] cv_type_to_string()
-|    |----[x] cv_type_from_string()
+|    |----[ ] cv_type_to_string()
+|    |----[ ] cv_type_from_string()
 |    |
-|    |----[x] cv_type_can_convert()
-|    L----[x] cv_type_convert()
+|    |----[ ] cv_type_can_convert()
+|    L----[ ] cv_type_convert()
 |
 |----types.c — Primitive types
 |    |----[x] UINT8
@@ -265,9 +265,6 @@ L----region.c — Operacoes Geometricas
 |    |----[ ] cv_histogram_from_image_region()
 |    |----[ ] cv_histogram_add_image_region()
 |    |
-|    |----[ ] cv_histogram_from_image_mask()
-|    |----[ ] cv_histogram_add_image_mask()
-|    |
 |    L----[ ] cv_histograms_from_image()
 |
 L----histogram_io.c — entrada/saída
@@ -298,3 +295,16 @@ L----histogram_io.c — entrada/saída
 
      * Definicao de código de retorno de erro para histogram_save
      
+     * Adicionar independencias externas no makefile
+
+
+     -----> Formas de abrir imagens e save em multi dimensions
+     * Convert color space
+
+
+# Brainstorm
+- transpor matrizes;
+- espelhar
+- girar
+
+- módulo de SALVAMENTO de matrizes e histogramas nativos

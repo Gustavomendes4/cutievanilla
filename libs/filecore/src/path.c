@@ -176,11 +176,11 @@ bool fc_isAbsolutePath(const char *path){
 }
 
 int fc_isValidPath(const char* path){
-
+    return 1;
 }
 
 int fc_pathBelongsTo(const char* path, const char* root){
-
+    return 1;
 }
 
 

@@ -16,7 +16,7 @@ add_subdirectory(
 # 2. Cria o executável
 # ==============================================================================
 add_executable(run
-    region_split.c
+    image_tests/clone_test.c
     # test_types.c
 )
 
@@ -29,5 +29,5 @@ add_executable(run
 #   - Os diretórios de inclusão (headers) marcados como PUBLIC na lib
 target_link_libraries(run PRIVATE
     cutievanilla
-    raylib
+    # raylib
 )
