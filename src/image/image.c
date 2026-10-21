@@ -20,28 +20,11 @@
 #include "cutievanilla/matrix.h"
 #include "cutievanilla/image.h"
 
-static size_t num_of_channels(CVColorSpace color_space){
 
-    switch(color_space){
-
-        case CV_COLOR_GRAY: return 1;
-        case CV_COLOR_RGB:  return 3;
-        case CV_COLOR_RGBA: return 4;
-        case CV_COLOR_BIN:  return 1;
-        case CV_COLOR_HSV:  return 3;
-        case CV_COLOR_UNKNOWN:
-    }
-    
-    return 0;
-}
-
-/*                      */
-/*   Public functions   */
-/*                      */
 CVImage* cv_image_create(size_t width, size_t height, CVColorSpace color_space, CVType data_type){
 
     /* se clrspc_or_chn < 0, considera-se um ENUM, caso contrário, o númetro de canais */
-    size_t channels = num_of_channels((CVColorSpace )color_space);
+    size_t channels = cv_colorspace_channels((CVColorSpace )color_space);
     
     if(
         width == 0      ||
@@ -100,7 +83,7 @@ CVImage* cv_image_clone(const CVImage* image){
         return NULL;
     }
 
-    new->color_format = cv_image_get_colorformat(image);
+    new->color_format = cv_image_get_colorspace(image);
     new->meta_data = image->meta_data;
 
     return new;
@@ -126,18 +109,49 @@ void cv_image_free( CVImage* image){
 
 }
 
-CVImage* cv_image_convert( const CVImage* image, CVColorSpace color_space){
+/* X */ CVImage* cv_image_convert( const CVImage* image, CVColorSpace color_space){
     
     if(image == NULL)
         return NULL;
 
-    if( cv_image_get_colorformat(image) == color_space)
+    if( !cv_colorspace_isvalid(color_space) )
+        return NULL;
+
+    CVColorSpace src_cs = cv_image_get_colorspace(image);
+
+    if( src_cs == color_space)
         return cv_image_clone(image);
 
-    // apenas converção para gray implementado
+    /* create new image */
+    CVType type   = cv_image_get_type(image);
+    size_t width  = cv_image_width(image);
+    size_t height = cv_image_height(image);
 
-    // if()
+    CVImage* new = cv_image_create(
+        width,
+        height,
+        color_space,
+        type
+    );
 
+    if( new == NULL) { return NULL; }
+    
+    /* Iterate pixels*/
+    uint8_t buffer[1024];
+
+    for( size_t x = 0; x < width; x++){
+
+        for( size_t y = 0; y < height; y++){
+
+            const void* pixel = cv_image_get_pixel(image, x, y);
+
+            cv_colorspace_convert_pixel(pixel, src_cs, buffer, color_space, type);
+
+            cv_image_set_pixel(new, x, y, buffer);
+        }
+    }
+
+    return new;
 }
 
 size_t cv_image_width(const CVImage *image){
@@ -179,12 +193,20 @@ size_t cv_image_channels(const CVImage *image){
     return shape[2];
 }
 
-CVColorSpace cv_image_get_colorformat(const CVImage *image){
+CVColorSpace cv_image_get_colorspace(const CVImage *image){
 
     if( image == NULL)
         return 0;
 
     return image->color_format;
+}
+
+CVType cv_image_get_type(const CVImage *image){
+
+    if( image == NULL)
+        return CV_TYPE_UNKNOWED;
+
+    return cv_matrix_get_type(image->matrix);
 }
 
 void cv_image_set_pixel(CVImage *image, size_t x, size_t y, const void* values){

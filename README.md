@@ -57,6 +57,8 @@ L----matrix_stats.c — Statistic
 # METADADOS
 ===================   LISTA DE FUNÇÕES EM METADADOS    ===================
 
+# COLORSPACE
+
 # TIPOS
 ===================   LISTA DE FUNÇÕES EM TIPOS        ===================
 |

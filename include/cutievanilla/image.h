@@ -4,38 +4,11 @@
 #include <stdint.h>
 
 #include "type.h"
+#include "colorspace.h"
 #include "metadata.h"
 
 /* Forward declaration */
 typedef struct _CVMatrix CVMatrix;
-
-
-
-
-/* ========================= */
-/* Color space              */
-/* ========================= */
-typedef enum {
-    CV_COLOR_UNKNOWN,
-    CV_COLOR_GRAY,
-    CV_COLOR_RGB,
-    CV_COLOR_RGBA,
-    CV_COLOR_BIN,
-    CV_COLOR_HSV
-    
-
-    /*
-        Dar suporte para abertura de imagens em formatos:
-        - binario   ( 1  bits/pixel)
-        - gray      ( 8  bits/pixel)
-        * rgba      ( 32 bits/pixel)
-        - rgb       ( 24 bits/pixel)
-        - CMYK      ( 32 bits/pixel) (ciano, magenta, amarelo e preto)
-        - HSV      ( 24 bits/pixel) (matiz, saturação e valor)
-    */
-}CVColorSpace;
-
-typedef int8_t ColorSpace_or_Channels;
 
 /* ========================= */
 /* Image                     */
@@ -77,8 +50,9 @@ size_t cv_image_height(const CVImage *image);
 
 size_t cv_image_channels(const CVImage *image);
 
-CVColorSpace cv_image_get_colorformat(const CVImage *image);
+CVColorSpace cv_image_get_colorspace(const CVImage *image);
 
+CVType cv_image_get_type(const CVImage *image);
 
 /* ========================= */
 /* Pixel access              */
