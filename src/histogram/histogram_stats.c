@@ -32,13 +32,16 @@ bool cv_histogram_min(const CVHistogram* histogram, void* value){
         return false;
 
 
-    void* min;
+    void *min, *curr;
         
     CVType type = histogram->type;
 
     for(size_t bin = 1; bin < histogram->bins; bin++){
 
-        void* curr = &histogram->value[ bin ];
+        // const void* curr = &histogram->value[ bin ];
+        if( !cv_histogram_get_value(histogram, bin, curr) ){
+            return false;
+        }
 
         if( cv_type_compare(type, min, curr) < 0){
             min = curr;
@@ -53,12 +56,15 @@ bool cv_histogram_max(const CVHistogram* histogram, void* value){
     if(histogram == NULL || value == NULL)
         return false;
 
-    void* max;        
+    void *max, *curr;        
     CVType type = histogram->type;
 
     for(size_t bin = 1; bin < histogram->bins; bin++){
 
-        void* curr = &histogram->value[ bin ];
+        // void* curr = &histogram->value[ bin ];
+        if( !cv_histogram_get_value(histogram, bin, curr) ){
+            return false;
+        }
 
         if( cv_type_compare(type, max, curr) > 0){
             max = curr;
@@ -70,17 +76,14 @@ bool cv_histogram_max(const CVHistogram* histogram, void* value){
 
 bool cv_histogram_mean(const CVHistogram* histogram, void* value){
 
-    for(size_t bin = 1; bin < histogram->bins; bin++){
+    // for(size_t bin = 1; bin < histogram->bins; bin++){
 
-        void* curr = &histogram->value[ bin ];
+        // void* curr = &histogram->value[ bin ];
 
+        // (void)curr;
+    // }
 
-
-
-    }
-
-
-
+    return false;
 }
 
 bool cv_histogram_median(const CVHistogram* histogram, void* value){

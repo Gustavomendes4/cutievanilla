@@ -14,6 +14,7 @@ add_subdirectory(libs/utils)
 # Adiciona dependências internas
 add_subdirectory(src/type)
 add_subdirectory(src/region)
+add_subdirectory(src/colorspace)
 add_subdirectory(src/histogram)
 add_subdirectory(src/matrix)
 add_subdirectory(src/image)

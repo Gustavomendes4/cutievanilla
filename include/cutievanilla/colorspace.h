@@ -3,13 +3,20 @@
 
 #include <stdbool.h>
 
+#include "cutievanilla/type.h"
+
 typedef enum _CVColorSpace{
-    CV_COLOR_UNKNOWN,
-    CV_COLOR_GRAY,
-    CV_COLOR_RGB,
-    CV_COLOR_RGBA,
-    CV_COLOR_BIN,
-    CV_COLOR_HSV
+    CV_COLOR_UNKNOWN = 0,
+    CV_COLOR_GRAY    = 1,
+    CV_COLOR_RGB     = 2,
+    CV_COLOR_RGBA    = 3,
+    CV_COLOR_BIN     = 4,
+    CV_COLOR_HSV     = 5,
+    
+    CV_COLOR_HSL     = 6,
+    CV_COLOR_BGR     = 7,
+    CV_COLOR_BGRA    = 8,
+    CV_COLOR_CMYK    = 9,
     
 
     /*
@@ -21,20 +28,21 @@ typedef enum _CVColorSpace{
         - CMYK      ( 32 bits/pixel) (ciano, magenta, amarelo e preto)
         - HSV      ( 24 bits/pixel) (matiz, saturação e valor)
     */
+    CV_COLOR_COUNT
+    
 }CVColorSpace;
 
 bool cv_colorspace_isvalid(CVColorSpace color_space);
 
-size_t cv_colorspace_channels(CVColorSpace color_space);
+int cv_colorspace_channels(CVColorSpace color_space);
 
-void cv_colorspace_convert_pixel(
-    const void* pixel,
-    CVColorSpace src_cs,
-    void* buffer,
-    CVColorSpace color_space,
+bool cv_colorspace_convert_pixel(
+    const void* src_pixel,
+    CVColorSpace src_space,
+    void* dest_pixel,
+    CVColorSpace dest_space,
     CVType type
 );
-
 
 
 

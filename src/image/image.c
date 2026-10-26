@@ -145,7 +145,7 @@ void cv_image_free( CVImage* image){
 
             const void* pixel = cv_image_get_pixel(image, x, y);
 
-            cv_colorspace_convert_pixel(pixel, src_cs, buffer, color_space, type);
+            // cv_colorspace_convert_pixel(pixel, src_cs, buffer, color_space, type);
 
             cv_image_set_pixel(new, x, y, buffer);
         }
