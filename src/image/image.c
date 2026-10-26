@@ -119,13 +119,19 @@ void cv_image_free( CVImage* image){
 
     CVColorSpace src_cs = cv_image_get_colorspace(image);
 
-    if( src_cs == color_space)
-        return cv_image_clone(image);
+    if( src_cs == color_space){
+        
+        printf("\nclonei");
+        return cv_image_clone(image) ; 
+    }
 
+        
+    
     /* create new image */
     CVType type   = cv_image_get_type(image);
     size_t width  = cv_image_width(image);
     size_t height = cv_image_height(image);
+
 
     CVImage* new = cv_image_create(
         width,
@@ -139,6 +145,8 @@ void cv_image_free( CVImage* image){
     /* Iterate pixels*/
     uint8_t buffer[1024];
 
+    printf("(A)\n");
+
     for( size_t x = 0; x < width; x++){
 
         for( size_t y = 0; y < height; y++){
@@ -150,6 +158,8 @@ void cv_image_free( CVImage* image){
             cv_image_set_pixel(new, x, y, buffer);
         }
     }
+
+    printf("(B)\n");
 
     return new;
 }

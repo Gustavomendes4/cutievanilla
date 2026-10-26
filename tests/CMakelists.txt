@@ -16,7 +16,7 @@ add_subdirectory(
 # 2. Cria o executável
 # ==============================================================================
 add_executable(run
-    image_tests/clone_test.c
+    play.c
     # test_types.c
 )
 

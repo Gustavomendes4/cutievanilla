@@ -277,7 +277,6 @@ bool cv_type_is_signed(CVType type){
     return type_mappings[index].is_signed;
 }
 
-
 /* Basic operations */
 bool cv_type_equals(CVType type, const void* a, const void* b){
 
@@ -475,8 +474,12 @@ TypeError cv_type_can_convert(CVType dst, CVType src){
 
 TypeError cv_type_convert(void* dst, CVType dstType, const void* src, CVType srcType){
 
-    if( dst == NULL )
+    if( dst == NULL || src == NULL )
         return TYPE_ERROR_NULL_POINTER;
+
+    TypeError r = cv_type_can_convert(dstType, srcType);
+
+    if( r != TYPE_OK) return r;
 
     int index = cv_type_index(srcType);
 

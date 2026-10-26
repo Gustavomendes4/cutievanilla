@@ -5,9 +5,9 @@
 #include "cutievanilla.h"
 
 
-const char* path_in = "C:\\Users\\Gustavo\\Desktop\\cutievanillacpp\\images\\icon.bmp";
+const char* path_in = "C:\\Users\\Gustavo\\Desktop\\cutievanillacpp\\images\\raw\\Iara.bmp";
 
-const char* path_out = "C:\\Users\\Gustavo\\Desktop\\cutievanillacpp\\images\\icon2.bmp";
+const char* path_out = ".\\out.bmp";
 
 
 int main(int argc, char* argv[]){
@@ -15,17 +15,24 @@ int main(int argc, char* argv[]){
 
     CVImage* img = cv_image_load(path_in);
 
-    for( int i = 0; i < 400; i ++)
-    for(int j = 0; j < 400; j++){
+    CVImage* out = cv_image_convert(img, CV_COLOR_GRAY);
 
-        cv_image_set_pixel(img, i + 200, j + 400, U8_LIST(1, 1, 1));
-
+    if( out == NULL){
+        printf("convert retornou NULL\n");
+        return -2;
     }
 
-    cv_image_save(img, path_out);
+    int n = cv_image_save(out, path_out);
+
+    if( n != 0){
+        printf("save retornou [%d]\n", n);
+        return -2;
+    }
+
 
     cv_image_free(img);
+    cv_image_free(out);
 
-
+    printf("Sucesso!!\n");
     return 0;
 }

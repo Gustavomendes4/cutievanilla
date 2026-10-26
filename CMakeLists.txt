@@ -45,6 +45,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     histogram
     matrix
     image
+    colorspace
 )
 
 # Header público exposto para quem linka com a lib

@@ -36,6 +36,8 @@ bool cv_colorspace_isvalid(CVColorSpace color_space);
 
 int cv_colorspace_channels(CVColorSpace color_space);
 
+const char* cv_colorspace_name(CVColorSpace color_space);
+
 bool cv_colorspace_convert_pixel(
     const void* src_pixel,
     CVColorSpace src_space,

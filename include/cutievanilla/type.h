@@ -52,7 +52,6 @@ bool cv_type_is_floating(CVType type);
 
 bool cv_type_is_signed(CVType type);
 
-
 /* Basic operations */
 bool cv_type_equals(CVType type, const void* a, const void* b);
 
@@ -81,5 +80,6 @@ TypeError cv_type_to_string(CVType type, char* string, const void* value);
 
 TypeError cv_type_from_string(CVType type, const char* string, void* value);
 
+TypeError cv_type_convert(void* dst, CVType dstType, const void* src, CVType srcType);
 
 #endif //CUTIEVANILLA_METADATA_H_INCLUDED

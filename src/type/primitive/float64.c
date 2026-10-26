@@ -1,4 +1,4 @@
-
+#include <stdint.h>
 #include "float64.h"
 
 bool f64_equals(const void* a, const void* b){
@@ -65,12 +65,57 @@ TypeError f64_from_string(void* value, const char* string){
 
 TypeError f64_can_convert(CVType type){
     (void) type;
-    return 0;
+    return TYPE_OK;
 }
 
-TypeError f64_convert(void* dst, CVType dstType, const void* src){
-    (void)dst;
-    (void)dstType;
-    (void)src;
-    return 0;
+TypeError f64_convert(void* dest, CVType srcType, const void* src){
+
+    double* buff = (double*)dest;
+
+    switch( srcType ){
+
+        case CV_UINT8:{
+            uint8_t value = *((uint8_t*)src);
+            *buff = (double)value;
+        }break;
+
+        case CV_INT8:{
+            int8_t value = *((int8_t*)src);
+            *buff = (double)value;
+        }break;
+
+        case CV_UINT16:{
+            uint16_t value = *((uint16_t*)src);
+            *buff = (double)value;
+        }break;
+
+        case CV_INT16:{
+            int16_t value = *((int16_t*)src);
+            *buff = (double)value;
+        }break;
+
+        case CV_UINT32:{
+            uint32_t value = *((uint32_t*)src);
+            *buff = (double)value;
+        }break;
+
+        case CV_INT32:{
+            int32_t value = *((int32_t*)src);
+            *buff = (double)value;
+        }break;
+
+        case CV_FLOAT32:{
+            float value = *((float*)src);
+            *buff = (double)value;
+        }break;
+
+        case CV_FLOAT64:{
+            *buff = *((double*)src);
+        }break;
+
+        case CV_TYPE_COUNT: break;
+        case CV_TYPE_UNKNOWED: break;
+    }
+
+    return TYPE_ERROR_INVALID_TYPE;
 }

@@ -136,7 +136,7 @@ TypeError i8_from_string(void* value, const char* string){
 
 TypeError i8_can_convert(CVType type){
     (void) type;
-    return 0;
+    return TYPE_OK;
 }
 
 TypeError i8_convert(void* dst, CVType dstType, const void* src){
