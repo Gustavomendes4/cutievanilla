@@ -4,9 +4,9 @@
 #include <string.h>
 #include <stddef.h>
 
-#include "cutievanilla/histogram.h"
+#include "core/histogram.h"
 
-#include "cutievanilla/type.h"
+#include "core/type.h"
 
 #include "csv_io.h"
 

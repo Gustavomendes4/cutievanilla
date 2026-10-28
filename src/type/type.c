@@ -4,7 +4,7 @@
 #include <limits.h>
 
 #include "cutievanilla.h"
-#include "cutievanilla/type.h"
+#include "core/type.h"
 
 #include "type_internal.h"
 

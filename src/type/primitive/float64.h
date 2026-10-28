@@ -1,7 +1,7 @@
 
 
 #include <stdbool.h>
-#include "cutievanilla/type.h"
+#include "core/type.h"
 
 bool f64_equals(const void* a, const void* b);
 

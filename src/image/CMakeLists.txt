@@ -15,10 +15,12 @@ add_library(image STATIC
 
 )
 
+
 target_link_libraries(image
     PRIVATE
         filecore
         matrix
+        png_static
 )
 
 target_include_directories(image
@@ -26,4 +28,6 @@ target_include_directories(image
         ${PROJECT_SOURCE_DIR}/include
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
+
+        # ${PROJECT_SOURCE_DIR}/libs/libpng
 )

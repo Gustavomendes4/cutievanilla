@@ -8,7 +8,8 @@ set(CMAKE_C_STANDARD 11)
 # Adiciona dependências externas
 add_subdirectory(libs/filecore)
 add_subdirectory(libs/utils)
-# add_subdirectory(libs/raylib)
+
+add_subdirectory(libs/third_party)
 
 
 # Adiciona dependências internas
@@ -18,6 +19,9 @@ add_subdirectory(src/colorspace)
 add_subdirectory(src/histogram)
 add_subdirectory(src/matrix)
 add_subdirectory(src/image)
+
+# Other modules
+add_subdirectory(modules/draw)
 
 # Adiciona o executável principal
 set(LIB_SOURCES
@@ -36,8 +40,14 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     # Adiciona dependências externas
     utils
     filecore
+    # zlib
+    # libpng
     # packet
     # minisocket
+    png_static
+
+    # Modules
+    draw
 
     # Adiciona dependências internas
     type
@@ -51,6 +61,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 # Header público exposto para quem linka com a lib
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+
+    ${CMAKE_CURRENT_BINARY_DIR}/libs/libpng
 )
 
 # Headers privados dentro de src/ (visíveis apenas pelos .c da própria lib)

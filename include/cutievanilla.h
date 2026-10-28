@@ -14,17 +14,15 @@
 #define I32_LIST(...) (int16_t[]){__VA_ARGS__}
 
 
-#include "cutievanilla/type.h"
+#include "core/type.h"
 
-#include "cutievanilla/region.h"
+#include "core/region.h"
 
-#include "cutievanilla/metadata.h"
+#include "core/matrix.h"
 
-#include "cutievanilla/matrix.h"
+#include "core/histogram.h"
 
-#include "cutievanilla/histogram.h"
+#include "core/image.h"
 
-
-#include "cutievanilla/image.h"
 
 #endif // CUTIEVANILLA_H_INCLUDED

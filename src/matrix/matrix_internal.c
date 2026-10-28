@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 
 #include "cutievanilla.h"
 #include "matrix_internal.h"
@@ -12,8 +13,9 @@ size_t calc_linear_index(const CVMatrix* matrix, const size_t* indices){
 
     for(size_t i = 0; i < matrix->dimension; i++){
 
-        if( indices[i] >= matrix->shape[i])
+        if( indices[i] >= matrix->shape[i]){
             return INVALID_INDEX;
+        }
 
         index = index * matrix->shape[i] + indices[i];
     }
@@ -21,17 +23,9 @@ size_t calc_linear_index(const CVMatrix* matrix, const size_t* indices){
     return index;
 }
 
-bool is_matrix_valid(const CVMatrix* matrix){
-
-    if(matrix == NULL || matrix->magic != CV_MATRIX_MAGIC_NUMBER)
-        return false;
-
-    return true;
-}
-
 const void* cv_matrix_get_linear(const CVMatrix* matrix, size_t index){
 
-    if( !is_matrix_valid(matrix) )
+    if( !cv_matrix_isvalid(matrix) )
         return NULL;
 
     if( index >= matrix->total_elements)
@@ -42,7 +36,7 @@ const void* cv_matrix_get_linear(const CVMatrix* matrix, size_t index){
 
 void cv_matrix_set_linear(CVMatrix* matrix, size_t index, const void* value){
 
-    if( !is_matrix_valid(matrix) || value == NULL)
+    if( !cv_matrix_isvalid(matrix) || value == NULL)
         return;
 
     if( index >= matrix->total_elements)

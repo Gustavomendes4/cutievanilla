@@ -1,6 +1,6 @@
 
 #include <stdbool.h>
-#include "cutievanilla/type.h"
+#include "core/type.h"
 
 bool f32_equals(const void* a, const void* b);
 

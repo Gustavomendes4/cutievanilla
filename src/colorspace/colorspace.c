@@ -217,8 +217,3 @@ bool cv_colorspace_convert_pixel(
     return converters[src_idx][dest_idx](src_pixel, dest_pixel, type);
 }
 
-
-
-
-
-

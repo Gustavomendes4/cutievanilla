@@ -10,8 +10,6 @@
 
 size_t calc_linear_index(const CVMatrix* matrix, const size_t* indices);
 
-bool is_matrix_valid(const CVMatrix* matrix);
-
 const void* cv_matrix_get_linear(const CVMatrix* matrix, size_t index);
 
 void cv_matrix_set_linear(CVMatrix* matrix, size_t index, const void* value);

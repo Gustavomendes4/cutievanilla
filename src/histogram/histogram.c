@@ -7,8 +7,8 @@
 #include "filecore.h"
 
 /* Public inclues*/
-#include "cutievanilla/type.h"
-#include "cutievanilla/histogram.h"
+#include "core/type.h"
+#include "core/histogram.h"
 
 /* Internal includes */
 #include "io/histogram_io.h"

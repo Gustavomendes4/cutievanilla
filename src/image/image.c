@@ -16,10 +16,20 @@
 
 #include "io/image_io.h"
 
-#include "cutievanilla/type.h"
-#include "cutievanilla/matrix.h"
-#include "cutievanilla/image.h"
+#include "core/type.h"
+#include "core/matrix.h"
+#include "core/image.h"
 
+bool cv_image_isvalid(CVImage* image){
+
+    if( image == NULL)
+        return false;
+
+    if( !cv_matrix_isvalid(image->matrix) || !cv_colorspace_isvalid(image->color_format) )
+        return false;
+    
+    return true;
+}
 
 CVImage* cv_image_create(size_t width, size_t height, CVColorSpace color_space, CVType data_type){
 
@@ -51,7 +61,6 @@ CVImage* cv_image_create(size_t width, size_t height, CVColorSpace color_space, 
 
     /* fill matrix */
     img->color_format = color_space;
-    img->meta_data = (CVMetaData){0};
     img->matrix = matrix;
 
     return img;
@@ -84,7 +93,6 @@ CVImage* cv_image_clone(const CVImage* image){
     }
 
     new->color_format = cv_image_get_colorspace(image);
-    new->meta_data = image->meta_data;
 
     return new;
 }

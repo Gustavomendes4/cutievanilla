@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cutievanilla/histogram.h"
+#include "core/histogram.h"
 
 #include "txt_io.h"
 

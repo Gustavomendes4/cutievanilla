@@ -1,7 +1,7 @@
 
 #include "histogram_internal.h"
 
-#include "cutievanilla/type.h"
+#include "core/type.h"
 
 size_t get_value_bin(const CVHistogram* histogram, const void* value){
 

@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "png.h"
+
 CVImage* cv_png_load( const char* filename){
     
     printf("PNG nao implementado ainda\n");

@@ -1,0 +1,56 @@
+# ==========================================
+# Third-party dependencies
+# ==========================================
+
+# ==========================================
+# zlib
+# ==========================================
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+
+set(ZLIB_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(
+    
+    zlib
+    EXCLUDE_FROM_ALL
+)
+
+# Informar à libpng onde encontrar a zlib
+set(ZLIB_ROOT
+    "${CMAKE_CURRENT_SOURCE_DIR}/zlib;${CMAKE_CURRENT_BINARY_DIR}/zlib"
+)
+
+set(ZLIB_INCLUDE_DIR
+    "${CMAKE_CURRENT_SOURCE_DIR}/zlib;${CMAKE_CURRENT_BINARY_DIR}/zlib"
+    CACHE STRING "Vendored zlib include directories" FORCE
+)
+
+# O target depende da versão do CMakeLists da zlib
+if(TARGET zlibstatic)
+    set(ZLIB_LIBRARY zlibstatic CACHE STRING "Vendored zlib library" FORCE)
+
+    if(NOT TARGET ZLIB::ZLIB)
+        add_library(ZLIB::ZLIB ALIAS zlibstatic)
+    endif()
+elseif(TARGET zlib)
+    set(ZLIB_LIBRARY zlib CACHE STRING "Vendored zlib library" FORCE)
+
+    if(NOT TARGET ZLIB::ZLIB)
+        add_library(ZLIB::ZLIB ALIAS zlib)
+    endif()
+else()
+    message(FATAL_ERROR "O target da zlib não foi criado.")
+endif()
+
+# ==========================================
+# libpng
+# ==========================================
+set(PNG_SHARED OFF CACHE BOOL "" FORCE)
+set(PNG_STATIC ON CACHE BOOL "" FORCE)
+set(PNG_TESTS OFF CACHE BOOL "" FORCE)
+set(PNG_TOOLS OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(
+    libpng
+    EXCLUDE_FROM_ALL
+)

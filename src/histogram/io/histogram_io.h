@@ -11,7 +11,7 @@ typedef enum _CVImageFileFormat{
 
 /* == Adiciona cabeçalhos para funções de I/O de imagens == */
 
-#include "cutievanilla/histogram.h"
+#include "core/histogram.h"
 
 #include "csv/csv_io.h"
 

@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// #include <png.h>
+
 #include "bmp_io.h"
 
 #include "cutievanilla.h"
-#include "cutievanilla/matrix.h"
 
 
 /* local validations */
-
 static bool isValidFileHeader(const BitmapFileHeader* head){
     if (head == NULL)
         return false;
@@ -60,13 +60,13 @@ static bool isValidInfoHeader(const BitmapInfoHeader* head){
     /*
      * Our current decoder expects bottom-up BMPs.
      * Negative height means top-down BMP.
-     */
+    */
     if (head->biHeight <= 0)
         return false;
 
     /*
      * BMP specification requires one plane.
-     */
+    */
     if (head->biPlanes != 1)
         return false;
 
@@ -152,6 +152,7 @@ CVImage* cv_bmp_load(const char* filename){
 
     
     /* BMP row size */
+    // const size_t channels = is_gray ? 1 : 3;
     size_t row_size = width * 3;
 
     size_t row_padded = (row_size + 3) & ~((size_t)3);
@@ -228,18 +229,29 @@ int cv_bmp_save(const CVImage* image, const char* filename){
     const size_t width  = image->matrix->shape[0];
     const size_t height = image->matrix->shape[1];
 
+    /* --- Verifica color space  --- */
+    const bool is_gray = (
+        image->matrix->dimension == 2 ||
+        (image->matrix->dimension == 3 && image->matrix->shape[2] == 1)
+    );
+
+
     /* BMP rows must be aligned to 4 bytes. */
-    const size_t row_size = width * 3;
+    const size_t channels = is_gray ? 1 : 3;
+    const size_t row_size = width * channels;
 
     const size_t row_padded = (row_size + 3) & ~((size_t)3);
     
     /* Calculate header infos */
     const size_t image_size = row_padded * height;
 
-    const size_t pixel_offset = sizeof(BitmapFileHeader) + sizeof(BitmapInfoHeader);
+    /*---- */
+    const size_t palette_size = is_gray ? (256 * /*sizeof(BitmapColorEntry)*/4) : 0;
+
+    const size_t pixel_offset = sizeof(BitmapFileHeader) + sizeof(BitmapInfoHeader) + palette_size;
 
     const size_t file_size = pixel_offset + image_size;
-
+    
     /*  File Header   */
     BitmapFileHeader fileHeader = {
         .bfType         = 0x4D42,
@@ -255,15 +267,16 @@ int cv_bmp_save(const CVImage* image, const char* filename){
         .biWidth    = width,
         .biHeight   = height,
         .biPlanes   = 1,
-        .biBitCount = 24,
+        .biBitCount = is_gray ? 8 : 24,
         .biCompression  = 0,
         .biSizeImage     = image_size,
         .biXPelsPerMeter = 0,
         .biYPelsPerMeter = 0,
-        .biClrUsed       = 0,
-        .biClrImportant  = 0
+        .biClrUsed       = is_gray ? 256 : 0,
+        .biClrImportant  = is_gray ? 256 : 0
     };
 
+    
     /* Write headers in file*/
     if( fwrite(&fileHeader, sizeof(BitmapFileHeader), 1, file) != 1){
         fclose(file);
@@ -275,6 +288,18 @@ int cv_bmp_save(const CVImage* image, const char* filename){
         return 4;
     }
 
+    
+    // MUDANÇA: Se for imagem Gray, escrevemos a paleta de cores em escala de cinza (0 a 255) logo após o InfoHeader
+    if (is_gray) {
+        for (int i = 0; i < 256; i++) {
+            uint8_t gray_entry[4] = { (uint8_t)i, (uint8_t)i, (uint8_t)i, 0 }; // B, G, R, Reserved
+            if (fwrite(gray_entry, 1, 4, file) != 4) {
+                fclose(file);
+                return 4;
+            }
+        }
+    }
+
     /* allocate 1 BMP row*/
     uint8_t* row = calloc(1, row_padded);
 
@@ -283,7 +308,6 @@ int cv_bmp_save(const CVImage* image, const char* filename){
         return 5;
     }
 
-    
     /*
     * BMP is bottom-up.
     *
@@ -295,7 +319,8 @@ int cv_bmp_save(const CVImage* image, const char* filename){
     * BMP:
     *
     * first row -> bottom
-    */
+    */ 
+
     for (size_t i = 0; i < height; i++) {
 
         size_t y = height - 1 - i;
@@ -303,27 +328,44 @@ int cv_bmp_save(const CVImage* image, const char* filename){
         /*  Fill row with BGR pixels */
         for (size_t x = 0; x < width; x++) {
 
-            const uint8_t* r = cv_matrix_get(image->matrix, (size_t[]){x, y, 0});
+            if (is_gray) {
+                // MUDANÇA: Leitura de 1 canal (Gray) para imagens de 8-bit
+                // Ajuste a chamada de get conforme a sua API de matriz (ex: {x, y} ou {x, y, 0})
+                const uint8_t* gray = cv_matrix_get(image->matrix, (size_t[]){x, y, 0});
 
-            const uint8_t* g = cv_matrix_get(image->matrix, (size_t[]){x, y, 1});
+                if(gray == NULL){
+                    printf("erro ao ler imagem\n");
+                    return -101;
+                }
 
-            const uint8_t* b = cv_matrix_get(image->matrix, (size_t[]){x, y, 2});
+                row[x] = *gray;
 
-            row[x * 3 + 0] = *b;
-            row[x * 3 + 1] = *g;
-            row[x * 3 + 2] = *r;
+            }
+            else{
+
+                const uint8_t* r = cv_matrix_get(image->matrix, (size_t[]){x, y, 0});
+                const uint8_t* g = cv_matrix_get(image->matrix, (size_t[]){x, y, 1});
+                const uint8_t* b = cv_matrix_get(image->matrix, (size_t[]){x, y, 2});
+                row[x * 3 + 0] = *b;
+                row[x * 3 + 1] = *g;
+                row[x * 3 + 2] = *r;
+            }
+
+
+
+            
+            /*
+            * Padding bytes are already zero
+            * because the row was allocated with calloc.
+            */
+           
         }
-
-        /*
-         * Padding bytes are already zero
-         * because the row was allocated with calloc.
-         */
 
         if (fwrite(row, 1, row_padded, file) != row_padded) {
             free(row);
             fclose(file);
             return 6;
-        }
+         }
     }
 
     free(row);

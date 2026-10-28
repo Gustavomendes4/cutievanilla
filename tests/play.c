@@ -4,35 +4,34 @@
 
 #include "cutievanilla.h"
 
-
-const char* path_in = "C:\\Users\\Gustavo\\Desktop\\cutievanillacpp\\images\\raw\\Iara.bmp";
-
-const char* path_out = ".\\out.bmp";
-
+#include "cutievanilla/draw.h"
 
 int main(int argc, char* argv[]){
 
+    const char* path_in  = "C:\\Users\\Gustavo\\Desktop\\cutievanilla\\images\\raw\\Gustavo.bmp";
+    const char* path_out = "C:\\Users\\Gustavo\\Desktop\\cutievanilla\\images\\saida.bmp";
+ 
+    /* Open image */
+    CVImage* image = cv_image_load(path_in);
 
-    CVImage* img = cv_image_load(path_in);
-
-    CVImage* out = cv_image_convert(img, CV_COLOR_GRAY);
-
-    if( out == NULL){
-        printf("convert retornou NULL\n");
-        return -2;
-    }
-
-    int n = cv_image_save(out, path_out);
-
-    if( n != 0){
-        printf("save retornou [%d]\n", n);
-        return -2;
+    if( image == NULL ){
+        printf("Erro ao abrir imagem.\n");
+        return -1;
     }
 
 
-    cv_image_free(img);
-    cv_image_free(out);
+    cv_draw_region(image, CV_REGION(10, 10, 80, 80), U8_LIST(0, 255, 255), 10);
 
+    cv_draw_region(image, CV_REGION(10, 10, 80, 80), U8_LIST(255, 0, 0), 3);
+
+    cv_draw_region(image, CV_REGION(10, 10, 80, 80), U8_LIST(0, 0, 255), 1);
+
+    if( cv_image_save(image, path_out) != 0 ){
+        printf("Erro para salvar imagem.\n");
+    }
+
+    /* End of program */
+    cv_image_free(image);
     printf("Sucesso!!\n");
     return 0;
 }

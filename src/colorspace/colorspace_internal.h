@@ -2,7 +2,7 @@
 #define CUTIEVANILLA_COLORSPACE_INTERNAL_H_INCLUDED
 
 #include <stdbool.h>
-#include "cutievanilla/type.h"
+#include "core/type.h"
 
 typedef bool (*CVColorConvertFn)(const void* src, void* dest, CVType dest_type);
 
